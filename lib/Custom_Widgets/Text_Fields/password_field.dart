@@ -28,8 +28,7 @@ class _SPasswordFieldState extends State<SPasswordField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 327,   
-      height: 52, 
+      width: 327,    
       child: TextFormField(
         controller: widget.controller,
         obscureText: _obscureText,

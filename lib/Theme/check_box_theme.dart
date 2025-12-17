@@ -15,6 +15,7 @@ class SCheckboxTheme {
       if (states.contains(WidgetState.selected)) {
         return SAppColors.background; 
       }
+      return null;
       
     }),
 
@@ -44,6 +45,7 @@ class SCheckboxTheme {
       if (states.contains(WidgetState.selected)) {
         return SAppColors.darkBackground; 
       } 
+      return null;
     }),
 
     // 3. Fill Color: The color that fills the box (the border is derived from this)
