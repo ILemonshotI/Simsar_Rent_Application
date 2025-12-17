@@ -16,6 +16,10 @@ class STextFormFieldTheme {
     hintStyle: STextTheme.lightTextTheme.bodyMedium,
     errorStyle: STextTheme.lightTextTheme.labelSmall,
     floatingLabelStyle: STextTheme.lightTextTheme.labelLarge,
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 8,
+      horizontal: 16,
+    ),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(width: 1, color: SAppColors.outlineGray),
@@ -57,6 +61,10 @@ class STextFormFieldTheme {
     hintStyle: STextTheme.darkTextTheme.bodyMedium,
     errorStyle: STextTheme.darkTextTheme.labelSmall,
     floatingLabelStyle: STextTheme.darkTextTheme.labelLarge,
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 8,
+      horizontal: 16,
+    ),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(width: 1, color: SAppColors.outlineGray),
