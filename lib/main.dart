@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_theme.dart';
-import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
-import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
+// import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
+// import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
+// import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
+// import 'package:simsar/Custom_Widgets/Buttons/checkbox.dart';
+import 'package:simsar/Screens/login_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,24 +21,9 @@ class MyApp extends StatelessWidget {
       theme: SAppTheme.lightTheme,
       home: Scaffold(
         body: Center(
-        child:  Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
-              SPrimaryButton(
-            text: "Sign up",
-            onPressed: () {}, 
-          ),
-          SizedBox(height: 16),
-          STextField(
-          labelText: "Email",
-          hintText: "Enter your email",
-          keyboardType: TextInputType.emailAddress,
-          prefixIcon: const Icon(Icons.email),
-            ),        
-            ],
-          ), 
+        child: SignUpForm(), 
         ),
       ),
     );
   }
-}
+}// End of the code file

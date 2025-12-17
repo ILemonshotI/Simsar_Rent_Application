@@ -41,7 +41,7 @@ class STextField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       enabled: enabled, 
-      // 🔑 IMPORTANT: we only override WHAT changes,
+      // IMPORTANT: we only override WHAT changes,
       // everything else comes from InputDecorationTheme
       decoration: InputDecoration(
         labelText: labelText,
