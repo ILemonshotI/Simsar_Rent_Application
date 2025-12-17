@@ -7,7 +7,7 @@ import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Buttons/checkbox.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
-
+import 'package:simsar/Custom_Widgets/Text_Fields/date_of_birth_field.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       darkTheme: SAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       // Just call LoginScreen here. Don't add Scaffold/Center here.
-      home:  RegisterScreen(),
+      home:  RegisterScreen()
     );
   }
 }

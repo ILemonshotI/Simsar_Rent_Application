@@ -7,7 +7,7 @@ import 'package:simsar/Theme/appbar_theme.dart';
 import 'package:simsar/Theme/bottom_sheet_theme.dart';
 import 'package:simsar/Theme/elevated_button_theme.dart'; 
 import 'package:simsar/Theme/check_box_theme.dart';
-
+import 'package:simsar/Theme/segmented_button_theme.dart';
 class   SAppTheme {
   SAppTheme._();
   static final ThemeData lightTheme = ThemeData(
@@ -20,6 +20,7 @@ class   SAppTheme {
   appBarTheme: SAppBarTheme.lightAppBarTheme,
   bottomSheetTheme: SBottomSheetTheme.lightBottomSheetTheme,
   elevatedButtonTheme: SElevatedButtonTheme.lightElevatedButtonThemeData,
+  segmentedButtonTheme: SSegmentedButtonTheme.lightSegmentedButtonThemeData,
   checkboxTheme: SCheckboxTheme.lightCheckboxTheme, 
   ); 
 
@@ -33,6 +34,7 @@ class   SAppTheme {
   appBarTheme: SAppBarTheme.darkAppBarTheme,
   bottomSheetTheme: SBottomSheetTheme.darkBottomSheetTheme,
   elevatedButtonTheme: SElevatedButtonTheme.darkElevatedButtonThemeData,
+  segmentedButtonTheme: SSegmentedButtonTheme.darkSegmentedButtonThemeData,
   checkboxTheme: SCheckboxTheme.darkCheckboxTheme,
   );
   }
