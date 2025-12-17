@@ -5,14 +5,14 @@ import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
 
-  const LoginScreen({super.key});
+  const RegisterScreen({super.key});
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
   bool agreed = false;
   final TextEditingController phoneController = TextEditingController();
@@ -33,7 +33,7 @@ void _handleLogin() {
       // If valid, proceed with login
       String phone = phoneController.text.trim();
       String password = passwordController.text;
-      print('Login Success: $phone , $password');
+      print('Register Success: $phone , $password');
     } else {
       print('Validation failed');
     }
@@ -55,8 +55,8 @@ void _handleLogin() {
 
         children: [
         LoginHeader(
-          title: "Welcome",
-          description: "Please enter phone number and password to continue.",
+          title: "Register Account",
+          description: "Sign up with your phone number and password to continue",
         ),
         const SizedBox(height: 128),
         STextField(
@@ -111,7 +111,7 @@ void _handleLogin() {
       ),
         const SizedBox(height: 32),
         SPrimaryButton(
-          text: "Sign in",
+          text: "Sign up",
           onPressed: _handleLogin ,
         ),
         const SizedBox(height: 32),

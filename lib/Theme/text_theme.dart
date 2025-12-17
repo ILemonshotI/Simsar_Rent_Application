@@ -19,6 +19,11 @@ class STextTheme {
           fontWeight: FontWeight.w400, // Regular
           color: SAppColors.textGray,
         ),
+        titleSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w800, // Semibold
+          color: SAppColors.primaryBlue,
+        ),
 
         // Paragraph: Inter / Regular / 14
         bodyMedium: TextStyle(

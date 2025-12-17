@@ -1,36 +1,38 @@
-
 import 'package:flutter/material.dart';
-
 class LoginHeader extends StatelessWidget {
-  const LoginHeader({super.key});
+  final String title;
+  final String description;
+  
+  
+  const LoginHeader({
+    required this.title, 
+    required this.description, 
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      body:Center( 
-      child:SizedBox(
-      width: 327, // fixed width from Figma
+    return SizedBox(
+      width: 327, // Keep your Figma width
       child: Column(
-        mainAxisSize: MainAxisSize.min, // HUG behavior
+        mainAxisSize: MainAxisSize.min, 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Welcome',
+            title,
             textAlign: TextAlign.left,
-            style: textTheme.titleLarge
+            style: textTheme.headlineMedium, // Adjusted for better hierarchy
           ),
-          const SizedBox(height: 8), // use Figma gap if specified
+          const SizedBox(height: 8), 
           Text(
-            'Please enter your mobile number and password to continue',
+            description,
             textAlign: TextAlign.left,
             style: textTheme.bodyMedium,
           ),
         ],
       ),
-    ),
-    ),
     );
   }
 }
