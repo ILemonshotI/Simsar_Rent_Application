@@ -13,6 +13,7 @@ import 'package:simsar/Theme/app_colors.dart';
 import '../Network/api_client.dart';
 import 'dart:typed_data';
 import 'package:simsar/Screens/login_screen.dart';
+import 'package:simsar/Screens/home_screen.dart';
 // import 'package:simsar/utils/image_path_grabber.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -37,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Uint8List? userProfileImage;
   final String preText = "Already have an account? ";
   final String sufText = "Sign In";
+  bool isWaitingForApproval = false;
 
 
   @override
@@ -98,9 +100,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       final message = response.data['message'] ?? "Registered successfully. Please wait for admin approval.";
       
       if (mounted) {
-        _showSnackBar(message, isError: false);
-        // Note: User must be approved by admin before login
-        Navigator.pushNamedAndRemoveUntil(context, '/pending_approval', (route) => false);
+        _showSnackBar("Registration Successful! Waiting for admin approval", isError: false);
+        
+        // This replaces the Register Screen with the Home Screen
+          Navigator.pushNamedAndRemoveUntil(context, '/pending_approval', (route) => false);
+
       }
     } else if (response.statusCode == 302) {
       _showSnackBar("Server Redirection Error (Duplicate entry or missing header)", isError: true);

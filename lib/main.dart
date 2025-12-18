@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simsar/Screens/home_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Theme/app_theme.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       darkTheme: SAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       // Just call LoginScreen here. Don't add Scaffold/Center here.
-      home:  LoginScreen()
+      home:  LoginScreen(),
     );
   }
 }

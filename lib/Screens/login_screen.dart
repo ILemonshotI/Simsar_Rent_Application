@@ -9,6 +9,7 @@ import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import '../Network/api_client.dart';
 import 'package:simsar/Screens/register_screen.dart';
+import 'package:simsar/Screens/home_screen.dart';
 class LoginScreen extends StatefulWidget {
 
   const LoginScreen({super.key});
@@ -54,7 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       // 4. Handle success (example)095
-      print('Login success: ${response.data}');
+     if (mounted) {
+        // 6. Navigate to HomeScreen and REMOVE login from the stack
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
 
       // TO DO:
       // - extract token
