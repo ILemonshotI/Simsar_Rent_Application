@@ -1,12 +1,20 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
-import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
+// import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/date_of_birth_field.dart';
 import 'package:simsar/Custom_Widgets/Buttons/segmented_button.dart';
+import 'package:simsar/Custom_Widgets/Buttons/add_profile_picture.dart';
+import 'package:simsar/Theme/app_colors.dart';
+import '../Network/api_client.dart';
+import 'dart:typed_data';
+import 'package:simsar/Screens/login_screen.dart';
+// import 'package:simsar/utils/image_path_grabber.dart';
+
 class RegisterScreen extends StatefulWidget {
 
   const RegisterScreen({super.key});
@@ -26,7 +34,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   int? userBirthMonth;
   int? userBirthYear;
   String selectedRole = 'tenant';
- 
+  Uint8List? userProfileImage;
+  final String preText = "Already have an account? ";
+  final String sufText = "Sign In";
+
+
   @override
   void dispose() {
     phoneController.dispose();
@@ -36,20 +48,96 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-void _handleLogin() {
+  Future<void> _registerPressed() async {
+  //  Validation
+  if (!_formKey.currentState!.validate()) return;
 
-    // 2. Trigger validation
-    if (_formKey.currentState!.validate()) {
-      // If valid, proceed with login
-      String phone = phoneController.text.trim();
-      String password = passwordController.text;
-      String firstName = firstNameController.text.trim();
-      String lastName = lastNameController.text.trim(); 
-      print('Register Success: $phone , $password');
-    } else {
-      print('Validation failed');
-    }
+  if (userBirthYear == null || userBirthMonth == null || userBirthDay == null) {
+    _showSnackBar("Please select your birthday", isError: true);
+    return;
   }
+  //  Profile Picture Check
+  if (userProfileImage == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Please select a profile picture"),
+        backgroundColor: SAppColors.error,
+      ),
+    );
+    return; // Stop the function
+  }
+
+  // 2. Data Preparation per Documentation Schema
+  final phone = phoneController.text.trim();
+  final birthDate = "${userBirthYear!}-${userBirthMonth!.toString().padLeft(2, '0')}-${userBirthDay!.toString().padLeft(2, '0')}";
+
+  try {
+    _showLoadingDialog();
+
+    // 3. API Call
+    final response = await DioClient.dio.post(
+      '/api/register',
+      data: {
+        'first_name': firstNameController.text.trim(),
+        'last_name': lastNameController.text.trim(),
+        'phone': phone,
+        'email': "$phone@simsar.test", // Ensures uniqueness for testing
+        'password': passwordController.text,
+        'role': selectedRole,
+        'birth_date': birthDate,
+        'photo': "test.jpg", // Required by API schema
+        'id_photo_front': "test_front.jpg",
+        'id_photo_back': "test_back.jpg",
+      },
+    );
+
+    if (mounted) Navigator.pop(context); // Close loading dialog
+
+    // 4. Handle Response
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final message = response.data['message'] ?? "Registered successfully. Please wait for admin approval.";
+      
+      if (mounted) {
+        _showSnackBar(message, isError: false);
+        // Note: User must be approved by admin before login
+        Navigator.pushNamedAndRemoveUntil(context, '/pending_approval', (route) => false);
+      }
+    } else if (response.statusCode == 302) {
+      _showSnackBar("Server Redirection Error (Duplicate entry or missing header)", isError: true);
+    } else {
+      final errorMsg = response.data['message'] ?? "Error: ${response.statusCode}";
+      _showSnackBar(errorMsg, isError: true);
+    }
+
+  } on DioException catch (e) {
+    if (mounted) Navigator.pop(context);
+    
+    String errorMessage = "Connection failed"; //
+    if (e.response?.data != null && e.response?.data is Map) {
+      errorMessage = e.response?.data['message'] ?? "Registration failed";
+    }
+    _showSnackBar(errorMessage, isError: true);
+  }
+}
+
+// Helper methods
+void _showSnackBar(String message, {required bool isError}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      backgroundColor: isError ? Colors.red : Colors.green,
+    ),
+  );
+}
+
+void _showLoadingDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(child: CircularProgressIndicator()),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +158,15 @@ void _handleLogin() {
           title: "Register Account",
           description: "Sign up with your phone number and password to continue",
         ),
-        const SizedBox(height: 64),
+        const SizedBox(height: 32),
+        SProfilePhotoButton(
+          onImageSelected: (Uint8List? img){
+            setState(() {
+              userProfileImage = img;
+            });
+          },
+        ),
+        const SizedBox(height: 16),
         STextField(
           labelText: "First Name",
           controller: firstNameController,
@@ -187,10 +283,19 @@ void _handleLogin() {
         const SizedBox(height: 32),
         SPrimaryButton(
           text: "Sign up",
-          onPressed: _handleLogin ,
+          onPressed: _registerPressed ,
         ),
         const SizedBox(height: 32),
-        const LoginFooter(),
+         LoginFooter(
+          preText: preText,
+          sufText: sufText,
+           onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+          );
+          },    
+        )
       ],
     )
     )

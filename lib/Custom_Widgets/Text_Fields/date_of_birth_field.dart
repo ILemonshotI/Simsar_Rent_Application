@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:simsar/Theme/app_colors.dart';
 class SDatePickerField extends StatefulWidget {
   final String labelText;
   final Function(DateTime) onDateSelected;
@@ -25,17 +25,24 @@ class _SDatePickerFieldState extends State<SDatePickerField> {
       context: context,
       builder: (_) => Container(
         height: 250,
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: SAppColors.background,
         child: Column(
           children: [
             // Toolbar with a "Done" button
             Container(
-              color: Theme.of(context).dividerColor.withOpacity(0.1),
+              color: SAppColors.primaryBlue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CupertinoButton(
-                    child: const Text('Done'),
+                    child: const Text(
+                      'Done',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: SAppColors.background,
+                      ),
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
