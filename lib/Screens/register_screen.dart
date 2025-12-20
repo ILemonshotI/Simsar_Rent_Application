@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     catch (e) {
     if (mounted) Navigator.pop(context); // Always close spinner on error
-    print("Logic Error: $e"); 
+    print("Logic Error: $e");
     _showSnackBar("Unexpected error: $e", isError: true);
   }
   }

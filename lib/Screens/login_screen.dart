@@ -7,6 +7,8 @@ import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
+
+import '../Network/api_client.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Network/api_client.dart';
 //import 'package:simsar/Screens/register_screen.dart';
@@ -66,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // - save token (SecureStorage)
       // - navigate to home
 
-    } on DioException catch (e) {
+    } on Exception catch (e) {
       final errorMessage =
           e.response?.data['message'] ?? 'Login failed';
       print(errorMessage);
@@ -165,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
         , sufText: sufText,
          onTap: () {
           context.go('/register');
-          },    
+          },
         ),
       ],
     )
