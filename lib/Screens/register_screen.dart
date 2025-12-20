@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
@@ -7,6 +8,8 @@ import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/date_of_birth_field.dart';
 import 'package:simsar/Custom_Widgets/Buttons/segmented_button.dart';
+
+import '../Network/api_client.dart';
 class RegisterScreen extends StatefulWidget {
 
   const RegisterScreen({super.key});
@@ -26,7 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   int? userBirthMonth;
   int? userBirthYear;
   String selectedRole = 'tenant';
- 
+
+
   @override
   void dispose() {
     phoneController.dispose();
@@ -36,7 +40,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-void _handleLogin() {
+
+
+
+
+
+  Future<void> _registerPressed() async {
+    // 1. Validate first
+    if (!_formKey.currentState!.validate()) {
+      print('Validation failed');
+      return;
+    }
+
+    // 2. Extract values
+    final phone = phoneController.text.trim();
+    final password = passwordController.text;
+    final first_name = firstNameController.text;
+    final last_name = lastNameController.text;
+    final month = userBirthMonth!.toString().padLeft(2, '0');
+    final day = userBirthDay!.toString().padLeft(2, '0');
+    final dateString =  "${userBirthYear!}-$month-$day";
+    try {
+      // 3. Call API
+      final response = await DioClient.dio.post(
+        '/api/register',
+        data: {
+          'first_name': first_name,
+          'last_name': last_name,
+          'phone':phone,
+          'email':"example@example.com",
+          'password': password,
+          'role': selectedRole,
+          'birth_date': dateString,
+          'photo':".jpg" ,
+          'id_photo_front': ".jpg",
+          'id_photo_back': ".jpg"
+        },
+      );
+
+      // 4. Handle success (example)
+      print('Login success: ${response.data}');
+
+      // TODO:
+      // - extract token
+      // - save token (SecureStorage)
+      // - navigate to home
+
+    } on DioException catch (e) {
+      final errorMessage =
+          e.response?.data['message'] ?? 'Login failed';
+      print(errorMessage);
+
+      // Optional: show snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } catch (e) {
+      print('Unexpected error: $e');
+    }
+  }
+
+  void _handleLogin() {
 
     // 2. Trigger validation
     if (_formKey.currentState!.validate()) {
@@ -187,7 +251,7 @@ void _handleLogin() {
         const SizedBox(height: 32),
         SPrimaryButton(
           text: "Sign up",
-          onPressed: _handleLogin ,
+          onPressed: _registerPressed ,
         ),
         const SizedBox(height: 32),
         const LoginFooter(),

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
@@ -5,6 +6,8 @@ import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
+
+import '../Network/api_client.dart';
 class LoginScreen extends StatefulWidget {
 
   const LoginScreen({super.key});
@@ -26,7 +29,51 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-void _handleLogin() {
+  Future<void> _loginPressed() async {
+    // 1. Validate first
+    if (!_formKey.currentState!.validate()) {
+      print('Validation failed');
+      return;
+    }
+
+    // 2. Extract values
+    final phone = phoneController.text.trim();
+    final password = passwordController.text;
+
+    try {
+      // 3. Call API
+      final response = await DioClient.dio.post(
+        '/api/login',
+        data: {
+          'phone': phone,
+          'password': password,
+        },
+      );
+
+      // 4. Handle success (example)095
+      print('Login success: ${response.data}');
+
+      // TODO:
+      // - extract token
+      // - save token (SecureStorage)
+      // - navigate to home
+
+    } on DioException catch (e) {
+      final errorMessage =
+          e.response?.data['message'] ?? 'Login failed';
+      print(errorMessage);
+
+      // Optional: show snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } catch (e) {
+      print('Unexpected error: $e');
+    }
+  }
+
+
+  void _handleLogin() {
 
     // 2. Trigger validation
     if (_formKey.currentState!.validate()) {
@@ -112,7 +159,7 @@ void _handleLogin() {
         const SizedBox(height: 32),
         SPrimaryButton(
           text: "Sign in",
-          onPressed: _handleLogin ,
+          onPressed: _loginPressed,
         ),
         const SizedBox(height: 32),
         const LoginFooter(),
