@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:simsar/Screens/home_screen.dart';
-import 'package:simsar/Screens/login_screen.dart';
-import 'package:simsar/Screens/register_screen.dart';
+// import 'package:simsar/Screens/home_screen.dart';
+// import 'package:simsar/Screens/login_screen.dart';
+// import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Theme/app_theme.dart';
+import 'package:simsar/utils/routes.dart';
 // import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
 // import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
 // import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
@@ -23,14 +24,14 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Simsar App',
       debugShowCheckedModeBanner: false,
       theme: SAppTheme.lightTheme,
       darkTheme: SAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       // Just call LoginScreen here. Don't add Scaffold/Center here.
-      home:  LoginScreen(),
+      routerConfig: AppRouter.router,
     );
   }
 }

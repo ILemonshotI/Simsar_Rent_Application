@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
-// import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/date_of_birth_field.dart';
 import 'package:simsar/Custom_Widgets/Buttons/segmented_button.dart';
 import 'package:simsar/Custom_Widgets/Buttons/add_profile_picture.dart';
 import 'package:simsar/Theme/app_colors.dart';
-import '../Network/api_client.dart';
+import 'package:simsar/Network/api_client.dart';
 import 'dart:typed_data';
-import 'package:simsar/Screens/login_screen.dart';
-import 'package:simsar/Screens/home_screen.dart';
-// import 'package:simsar/utils/image_path_grabber.dart';
+//import 'package:simsar/Screens/login_screen.dart';
+//import 'package:simsar/Screens/home_screen.dart';
+import 'package:go_router/go_router.dart';
+
 
 class RegisterScreen extends StatefulWidget {
 
@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'first_name': firstNameController.text.trim(),
         'last_name': lastNameController.text.trim(),
         'phone': phone,
-        'email': "$phone@simsar.test", // Ensures uniqueness for testing
+        'email': "$phone@simsar.test", // Placeholder email
         'password': passwordController.text,
         'role': selectedRole,
         'birth_date': birthDate,
@@ -101,9 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       
       if (mounted) {
         _showSnackBar("Registration Successful! Waiting for admin approval", isError: false);
-        
-        // This replaces the Register Screen with the Home Screen
-          Navigator.pushNamedAndRemoveUntil(context, '/pending_approval', (route) => false);
+        context.go('/pending-approval');
 
       }
     } else if (response.statusCode == 302) {
@@ -294,10 +292,7 @@ void _showLoadingDialog() {
           preText: preText,
           sufText: sufText,
            onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
-          );
+          context.go('/login');
           },    
         )
       ],
