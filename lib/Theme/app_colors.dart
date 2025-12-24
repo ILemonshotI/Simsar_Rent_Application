@@ -33,4 +33,13 @@ class SAppColors {
 
   // Transparent Colour
   static const Color transparent = Colors.transparent;
+
+  // Heart Colour
+  static const Color heartRed = Color.fromARGB(255, 230, 71, 71);
+
+  // Star Colour
+  static const Color starYellow = Color(0xFFFFD700);
+
+  // Review Background
+  static const Color reviewBackground = Color(0xFFFFFAEB);
 }

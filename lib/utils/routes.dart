@@ -1,14 +1,17 @@
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Screens/home_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
-import 'package:simsar/Screens/pending_approval_screen';
+import 'package:simsar/Screens/pending_approval_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
-
+import 'package:simsar/Layouts/main_layout.dart';
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
   static const String register = '/register';
   static const String pendingApproval = '/pending-approval';
+  static const String favorites = '/favorites';
+  static const String bookings = '/bookings';
+  static const String profile = '/profile';
 
   static final GoRouter router = GoRouter(
     initialLocation: login,
@@ -22,13 +25,32 @@ class AppRouter {
         builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
-        path: home,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
         path: pendingApproval,
         builder: (context, state) => const PendingApprovalScreen(),
-      )
+      ),
+      ShellRoute(
+        builder: (context, state, child) {
+          return MainLayout(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: home,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: favorites,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: bookings,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: profile,
+            builder: (context, state) => const HomeScreen(),
+          ),
+        ],
+      ),
     ],
   );
 }

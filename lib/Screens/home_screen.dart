@@ -1,47 +1,57 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
+import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Theme/app_colors.dart';
+import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        // This automatically adds a back button if you pushed this screen
-        automaticallyImplyLeading: true, 
-      ),
-      body: Center(
+   
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(
-              Icons.home_rounded,
-              size: 100,
-              color: Colors.blue,
+            // Inside HomeScreen Column children:
+            HomeHeader(
+              title: "Apartment Listings",
+              onNotificationTap: () {
+                print("Open notifications");
+              },
             ),
             const SizedBox(height: 20),
-            const Text(
-              "Welcome to Simsar",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+            // 2. IMPLEMENTATION: The scrolling list of apartments
+            ListView.separated(
+              shrinkWrap: true, // Allows the list to take only needed space
+              physics: const NeverScrollableScrollPhysics(), // Disables nested scrolling
+              itemCount: properties.length,
+              separatorBuilder: (context, index) => Divider(
+                color: SAppColors.outlineGray.withValues(alpha: 0.25), // Light gray color
+                thickness: 1,       
+                indent: 8,   
+                endIndent: 8,                 
+              ),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0), // Adds spacing between cards
+                  child: PropertyTile(property: properties[index]),
+                );
+              },
             ),
-            const SizedBox(height: 10),
-            const Text("You are currently logged in."),
-            const SizedBox(height: 40),
-            
-            // The Button to return to the previous page
-            SizedBox(
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  foregroundColor: Colors.white,
+
+            const SizedBox(height: 30),
+            Center(
+              child: SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () => context.go('/login'),
+                  child: const Text("Return to Login"),
                 ),
-                onPressed: () {
-                  // This removes the Home screen and shows the Login/Register screen again
-                  Navigator.pop(context);
-                },
-                child: const Text("Return to Login"),
               ),
             ),
           ],
@@ -50,3 +60,29 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+final dummyProperty = Property(
+  title: "Yafour Villa",
+  location: "Yafour Street No.47, RW.001",
+  pricePerMonth: 120.0,
+  images: ["assets/images/yafour_villa.jpg"],
+  bedrooms: 2,
+  bathrooms: 1,
+  areaSqft: 450,
+  buildYear: 2021,
+  parking: "Yes",
+  status: "Active",
+  description: "A cozy place to stay.",
+  agent: Agent(name: "John", avatarUrl: "", role: "Owner"),
+  reviewsCount: 10,
+  featuredReview: Review(
+    reviewerName: "Sam",
+    reviewerAvatar: "",
+    rating: 4,
+    text: "Loved it!",
+  ),
+);
+final List<Property> properties = [
+      dummyProperty,
+      dummyProperty, // Duplicate for demonstration
+      dummyProperty, 
+    ];

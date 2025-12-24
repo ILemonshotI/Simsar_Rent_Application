@@ -270,7 +270,7 @@ void _showLoadingDialog() {
                 selected: selectedRole,
                 segments: const [
                   ButtonSegment(value: 'tenant', label: Text('Tenant')),
-                  ButtonSegment(value: 'landlord', label: Text('Landlord')),
+                  ButtonSegment(value: 'owner', label: Text('Landlord')),
                 ],
                 onSelectionChanged: (value) {
                   setState(() {

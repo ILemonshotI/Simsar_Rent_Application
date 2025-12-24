@@ -52,6 +52,20 @@ class STextTheme {
           fontWeight: FontWeight.w400, // Regular
           color: SAppColors.error,
         ),
+
+        // Review and Price Text Style
+        displaySmall: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w800, // Bold
+          color: SAppColors.textGray,
+        ),
+
+        // For Navigation Text
+        headlineSmall: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w500, // Medium
+          color: SAppColors.descriptionTextGray,
+        ),
   );
 
 // Dark Theme Text Style

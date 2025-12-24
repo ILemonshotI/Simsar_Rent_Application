@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Custom_Widgets/Buttons/checkbox.dart';
-
 class SCheckboxTile extends StatelessWidget {
   final bool value;
   final ValueChanged<bool?> onChanged;
