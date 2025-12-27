@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simsar/Screens/login_screen.dart';
+import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Theme/app_theme.dart';
 import 'package:simsar/utils/routes.dart';
 
@@ -29,4 +31,4 @@ class MyApp extends StatelessWidget {
 }
 
 
-// End of the code file
+// End of the code
