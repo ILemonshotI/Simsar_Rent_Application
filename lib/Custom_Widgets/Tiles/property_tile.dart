@@ -68,7 +68,7 @@ class PropertyTile extends StatelessWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            property.location,
+                            "${property.province}, ${property.city}",
                             style: STextTheme.lightTextTheme.bodySmall,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -78,7 +78,7 @@ class PropertyTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '\$${property.pricePerMonth.toInt()}/night',
+                      '\$${property.pricePerDay.toInt()}/night',
                       style: STextTheme.lightTextTheme.displaySmall,
                     ),
                   ],

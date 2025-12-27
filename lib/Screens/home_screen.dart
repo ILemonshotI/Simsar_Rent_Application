@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/search_field.dart';
-
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
-
+import 'package:simsar/Models/filter_model.dart';
+import 'package:simsar/Custom_Widgets/Tiles/filter_sheet.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,12 +17,29 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   late List<Property> filteredProperties;
+  PropertyFilter activeFilter = PropertyFilter();
 
   @override
   void initState() {
     super.initState();
     // Initially show all properties
     filteredProperties = List.from(properties);
+  }
+
+void _applyFilters(PropertyFilter newFilter) {
+    setState(() {
+      activeFilter = newFilter;
+      filteredProperties = properties.where((p) {
+        // 1. Filter by Location
+        final matchesLocation = activeFilter.location == null || p.province == activeFilter.location;
+        // 2. Filter by Price
+        final matchesPrice = p.pricePerDay >= activeFilter.minPrice && p.pricePerDay <= activeFilter.maxPrice;
+        // 3. Filter by Type (Assuming your Property model has a 'type' field)
+        // final matchesType = activeFilter.propertyTypes.isEmpty || activeFilter.propertyTypes.contains(p.type);
+
+        return matchesLocation && matchesPrice;
+      }).toList();
+    });
   }
 
   @override
@@ -48,11 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
             // Search Bar
             Center(
               child: SPropertySearchBar(
-                sourceList: dummyPropertyNames,
-                onSelected: (selectedName) {
-                  // Just print the returned string for now
-                  print("Selected property: $selectedName");
+                propertiesList: properties,
+                onSelected: (selectedProperty) {
+                  // Just print the returned property for now
+                  print("Selected property: ${selectedProperty.title}");
             },
+                onFilterTap: () => showFilterSheet(context, activeFilter, _applyFilters),
             ),
             ),
 
@@ -97,16 +114,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
 final dummyProperty = Property(
   title: "Yafour Villa",
-  location: "Yafour Street No.47, RW.001",
-  pricePerMonth: 120.0,
+  province: "Damascus",
+  city: "Yafour Street No.47, RW.001",
+  pricePerDay: 120.0,
   images: ["assets/images/yafour_villa.jpg"],
   bedrooms: 2,
   bathrooms: 1,
   areaSqft: 450,
   buildYear: 2021,
-  parking: "Yes",
+  parking: true,
   status: "Active",
   description: "A cozy place to stay.",
   agent: Agent(
@@ -135,15 +155,4 @@ final List<Property> properties = [
   dummyProperty,
   dummyProperty,
 ];
-final List<String> dummyPropertyNames = [
-  "Yafour Villa",
-  "Damascus City Apartment",
-  "Luxury Apartment in Mezzeh",
-  "Modern Studio – Abu Rummaneh",
-  "Family House in Kafr Sousa",
-  "Sea View Apartment",
-  "Downtown Flat",
-  "Garden Villa",
-  "Furnished Studio",
-  "Penthouse Apartment",
-];
+

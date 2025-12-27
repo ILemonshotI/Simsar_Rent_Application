@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:simsar/Theme/slider_theme.dart';
 import 'package:simsar/Theme/text_theme.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_input_field.dart';
@@ -8,6 +9,7 @@ import 'package:simsar/Theme/bottom_sheet_theme.dart';
 import 'package:simsar/Theme/elevated_button_theme.dart'; 
 import 'package:simsar/Theme/check_box_theme.dart';
 import 'package:simsar/Theme/segmented_button_theme.dart';
+import 'package:simsar/Theme/outlined_button_theme.dart';
 class   SAppTheme {
   SAppTheme._();
   static final ThemeData lightTheme = ThemeData(
@@ -22,6 +24,8 @@ class   SAppTheme {
   elevatedButtonTheme: SElevatedButtonTheme.lightElevatedButtonThemeData,
   segmentedButtonTheme: SSegmentedButtonTheme.lightSegmentedButtonThemeData,
   checkboxTheme: SCheckboxTheme.lightCheckboxTheme, 
+  sliderTheme: SSliderTheme.lightThemeData,
+  outlinedButtonTheme: SOutlinedButtonTheme.lightOutlinedButtonThemeData,
   ); 
 
   static final ThemeData darkTheme = ThemeData(
@@ -36,5 +40,7 @@ class   SAppTheme {
   elevatedButtonTheme: SElevatedButtonTheme.darkElevatedButtonThemeData,
   segmentedButtonTheme: SSegmentedButtonTheme.darkSegmentedButtonThemeData,
   checkboxTheme: SCheckboxTheme.darkCheckboxTheme,
+  sliderTheme: SSliderTheme.darkThemeData,
+  outlinedButtonTheme: SOutlinedButtonTheme.darkOutlinedButtonThemeData,
   );
   }

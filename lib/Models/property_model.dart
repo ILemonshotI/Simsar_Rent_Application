@@ -1,13 +1,14 @@
 class Property {
   final String title;
-  final String location;
-  final double pricePerMonth;
+  final String province;
+  final String city;
+  final double pricePerDay;
   final List<String> images;
   final int bedrooms;
   final int bathrooms;
   final int areaSqft;
   final int buildYear;
-  final String parking;
+  final bool parking;
   final String status;
   final String description;
 
@@ -17,8 +18,9 @@ class Property {
 
   Property({
     required this.title,
-    required this.location,
-    required this.pricePerMonth,
+    required this.province,
+    required this.city,
+    required this.pricePerDay,
     required this.images,
     required this.bedrooms,
     required this.bathrooms,
