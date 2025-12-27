@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simsar/Screens/edit_listing_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Theme/app_theme.dart';
@@ -16,7 +17,7 @@ final demoAgent = Agent(
   role: "",
 );
 final demoReview = Review(
-    reviewerName: "",
+    reviewerName: "Laith al3llak",
     reviewerAvatar: "",
     rating:5,
     text: "");
@@ -25,7 +26,7 @@ final demoProperty = Property(
   title: 'House of Mormon',
   location: 'Denpasar, Bali',
   pricePerMonth: 310,
-
+// add images attribute
   bedrooms: 3,
   bathrooms: 2,
   buildYear: 2020,
@@ -56,9 +57,9 @@ class MyApp extends StatelessWidget {
       darkTheme: SAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       // Just call LoginScreen here. Don't add Scaffold/Center here.
-      home: PropertyDetailsScreen(property: demoProperty),
+      home: EditListingScreen(apartment: demoProperty),
     );
   }
 }
 
-// End of the code file
+// End of the code
