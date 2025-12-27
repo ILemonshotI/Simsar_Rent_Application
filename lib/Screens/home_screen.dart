@@ -1,50 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
+import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
+import 'package:simsar/Custom_Widgets/Text_Fields/search_field.dart';
+
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
-import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  late List<Property> filteredProperties;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initially show all properties
+    filteredProperties = List.from(properties);
+  }
+
+  @override
   Widget build(BuildContext context) {
-   
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Inside HomeScreen Column children:
+
+            // 🔹 Header
             HomeHeader(
               title: "Apartment Listings",
               onNotificationTap: () {
-                print("Open notifications");
+                debugPrint("Open notifications");
               },
             ),
+
+            const SizedBox(height: 16),
+
+            // Search Bar
+            Center(
+              child: SPropertySearchBar(
+                sourceList: dummyPropertyNames,
+                onSelected: (selectedName) {
+                  // Just print the returned string for now
+                  print("Selected property: $selectedName");
+            },
+            ),
+            ),
+
             const SizedBox(height: 20),
 
-            // 2. IMPLEMENTATION: The scrolling list of apartments
+            // Property List
             ListView.separated(
-              shrinkWrap: true, // Allows the list to take only needed space
-              physics: const NeverScrollableScrollPhysics(), // Disables nested scrolling
-              itemCount: properties.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: filteredProperties.length,
               separatorBuilder: (context, index) => Divider(
-                color: SAppColors.outlineGray.withValues(alpha: 0.25), // Light gray color
-                thickness: 1,       
-                indent: 8,   
-                endIndent: 8,                 
+                color: SAppColors.outlineGray.withValues(alpha: 0.25),
+                thickness: 1,
+                indent: 8,
+                endIndent: 8,
               ),
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0), // Adds spacing between cards
-                  child: PropertyTile(property: properties[index]),
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: PropertyTile(
+                    property: filteredProperties[index],
+                  ),
                 );
               },
             ),
 
             const SizedBox(height: 30),
+
+            // Return Button (for testing)
             Center(
               child: SizedBox(
                 width: 200,
@@ -72,7 +109,11 @@ final dummyProperty = Property(
   parking: "Yes",
   status: "Active",
   description: "A cozy place to stay.",
-  agent: Agent(name: "John", avatarUrl: "", role: "Owner"),
+  agent: Agent(
+    name: "John",
+    avatarUrl: "",
+    role: "Owner",
+  ),
   reviewsCount: 10,
   featuredReview: Review(
     reviewerName: "Sam",
@@ -81,8 +122,28 @@ final dummyProperty = Property(
     text: "Loved it!",
   ),
 );
+
 final List<Property> properties = [
-      dummyProperty,
-      dummyProperty, // Duplicate for demonstration
-      dummyProperty, 
-    ];
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+  dummyProperty,
+];
+final List<String> dummyPropertyNames = [
+  "Yafour Villa",
+  "Damascus City Apartment",
+  "Luxury Apartment in Mezzeh",
+  "Modern Studio – Abu Rummaneh",
+  "Family House in Kafr Sousa",
+  "Sea View Apartment",
+  "Downtown Flat",
+  "Garden Villa",
+  "Furnished Studio",
+  "Penthouse Apartment",
+];

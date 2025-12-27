@@ -40,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? userIDFrontImagePath;
   String? userIDBackImagePath;
 
+
   final String preText = "Already have an account? ";
   final String sufText = "Sign In";
   bool isWaitingForApproval = false;

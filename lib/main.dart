@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_theme.dart';
 import 'package:simsar/utils/routes.dart';
 
-
-
 void main() {
   runApp(const MyApp());
 }
