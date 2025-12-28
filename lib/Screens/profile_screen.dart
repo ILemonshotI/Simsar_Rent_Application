@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/property_enums.dart';
-class FavouritesScreen extends StatefulWidget {
-  const FavouritesScreen({super.key});
+import 'dart:typed_data';
+import 'package:simsar/Theme/text_theme.dart';
+import 'package:simsar/Custom_Widgets/Tiles/profile_tile.dart';
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<FavouritesScreen> createState() => _FavouritesScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _FavouritesScreenState extends State<FavouritesScreen> {
-
-  late List<Property> filteredProperties;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initially show all properties
-    filteredProperties = List.from(properties);
-  }
-
-
+class _ProfileScreenState extends State<ProfileScreen> {
+  Uint8List? profilePhoto; 
+  String profileName = "Profile Name";
  @override
 Widget build(BuildContext context) {
   return SafeArea(
@@ -45,7 +38,7 @@ Widget build(BuildContext context) {
                 onPressed: () => context.pop(),
               ),
               const Text(
-                "Favorites",
+                "Profile",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -56,32 +49,50 @@ Widget build(BuildContext context) {
             ],
           ),
 
-          const SizedBox(height: 24),
-
-          // Property List
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: filteredProperties.length,
-            separatorBuilder: (context, index) => Divider(
-              color: SAppColors.outlineGray.withValues(alpha: 0.25),
-              thickness: 1,
-              indent: 8,
-              endIndent: 8,
+          const SizedBox(height: 48),
+          Center(
+            child: Column(
+              children: [
+                CircleAvatar(
+              radius: 70,
+              backgroundColor: SAppColors.white,
+              backgroundImage: profilePhoto != null
+                  ? MemoryImage(profilePhoto!) as ImageProvider
+                : const AssetImage('assets/images/profile_placeholder.png'),
+            // Optional: Add a foreground image or child if you want to overlay something
+            onBackgroundImageError: (exception, stackTrace) {
+            debugPrint("Error loading profile image: $exception");
+          },
             ),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: PropertyTile(
-                  property: filteredProperties[index],
-                  onTap: () {
-                      // Navigate to details and pass the property object
-                      context.push('/detailsscreen', extra: filteredProperties[index]);
-                    },
+                const SizedBox(height: 16),
+                 Text(
+                  profileName,
+                  style: STextTheme.lightTextTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600, color: SAppColors.secondaryDarkBlue),
                 ),
-              );
-            },
-          ),
+                const SizedBox(height: 48),
+                ProfileTile(
+                icon: Icons.settings,
+                title: 'Edit Profile',
+                route: '/edit-profile',
+                ),
+                SizedBox(height: 20),
+
+                ProfileTile(
+                  icon: Icons.info_outline,
+                  title: 'About',
+                  route: '/about',
+                ),
+                SizedBox(height: 20),
+
+                ProfileTile(
+                  icon: Icons.account_balance_wallet_outlined,
+                  title: 'Wallet',
+                  route: '/wallet',
+                ),
+          ],
+         ),
+          
+    ),
         ],
       ),
     ),

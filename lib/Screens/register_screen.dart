@@ -102,10 +102,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
         token: '1|2wrcw5Xq7Vx2uedN0Uf3gNhmzRA7mDnSjjiD1KlL81be2df3'
       );
+      const String baseUrl = "https://airbnb-production-d781.up.railway.app";
 
-      final userProfileImagePath = uploadedUrls[0];
-      final userIDFrontImagePath = uploadedUrls[1];
-      final userIDBackImagePath = uploadedUrls[2];
+      final userProfileImagePath = baseUrl + uploadedUrls[0];
+      final userIDFrontImagePath = baseUrl + uploadedUrls[1];
+      final userIDBackImagePath = baseUrl + uploadedUrls[2];
 
       // API Call
       final response = await DioClient.dio.post(

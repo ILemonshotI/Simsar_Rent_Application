@@ -6,9 +6,12 @@ import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/text_theme.dart';
 class PropertyTile extends StatelessWidget {
   final Property property;
+  final VoidCallback onTap;
+
   const PropertyTile({
     super.key, 
     required this.property,
+    required this.onTap,
   });
 
   @override
@@ -17,9 +20,7 @@ class PropertyTile extends StatelessWidget {
     color: Colors.transparent, 
     child: InkWell(
       borderRadius: BorderRadius.circular(16), // Match your container radius
-      onTap: () {
-
-      },
+      onTap: onTap,
     child: Container(
       width: 327,
       height: 84,

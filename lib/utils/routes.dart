@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
+import 'package:simsar/Screens/edit_profile_screen.dart';
 import 'package:simsar/Screens/home_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/pending_approval_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Layouts/main_layout.dart';
 import 'package:simsar/Screens/favourites_screen.dart';
-
+import 'package:simsar/Screens/profile_screen.dart';
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
@@ -14,6 +15,7 @@ class AppRouter {
   static const String favorites = '/favorites';
   static const String bookings = '/bookings';
   static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -29,6 +31,10 @@ class AppRouter {
       GoRoute(
         path: pendingApproval,
         builder: (context, state) => const PendingApprovalScreen(),
+      ),
+      GoRoute(
+        path: editProfile,
+        builder: (context, state) => const EditProfileScreen(),
       ),
       ShellRoute(
         builder: (context, state, child) {
@@ -49,7 +55,7 @@ class AppRouter {
           ),
           GoRoute(
             path: profile,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const ProfileScreen(),
           ),
         ],
       ),

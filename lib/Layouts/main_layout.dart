@@ -30,7 +30,7 @@ class MainLayout extends StatelessWidget {
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) {
-            context.go(tabs[index]);
+            context.push(tabs[index]);
           },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: SAppColors.secondaryDarkBlue,

@@ -95,6 +95,10 @@ void _applyFilters(PropertyFilter newFilter) {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: PropertyTile(
                     property: filteredProperties[index],
+                    onTap: () {
+                      // Navigate to details and pass the property object
+                      context.push('/detailsscreen', extra: filteredProperties[index]);
+                    },
                   ),
                 );
               },
