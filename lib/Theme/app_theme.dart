@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:simsar/Theme/calender_date_picker_theme.dart';
 import 'package:simsar/Theme/slider_theme.dart';
 import 'package:simsar/Theme/text_theme.dart';
 import 'package:simsar/Theme/app_colors.dart';
@@ -26,6 +27,7 @@ class   SAppTheme {
   checkboxTheme: SCheckboxTheme.lightCheckboxTheme, 
   sliderTheme: SSliderTheme.lightThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.lightOutlinedButtonThemeData,
+  datePickerTheme: SDatePickerTheme.lightDatePickerTheme,
   ); 
 
   static final ThemeData darkTheme = ThemeData(
@@ -42,5 +44,6 @@ class   SAppTheme {
   checkboxTheme: SCheckboxTheme.darkCheckboxTheme,
   sliderTheme: SSliderTheme.darkThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.darkOutlinedButtonThemeData,
+  datePickerTheme: SDatePickerTheme.darkDatePickerTheme,
   );
   }
