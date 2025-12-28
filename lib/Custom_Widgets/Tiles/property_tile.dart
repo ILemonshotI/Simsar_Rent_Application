@@ -68,7 +68,7 @@ class PropertyTile extends StatelessWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            "${property.province}, ${property.city}",
+                            "${property.province.displayName}, ${property.city.displayName}",
                             style: STextTheme.lightTextTheme.bodySmall,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

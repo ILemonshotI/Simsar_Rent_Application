@@ -1,7 +1,9 @@
+import 'package:simsar/Models/property_enums.dart';
 class Property {
   final String title;
-  final String province;
-  final String city;
+  final Province province; 
+  final City city;
+  final PropertyType propertyType;
   final double pricePerDay;
   final List<String> images;
   final int bedrooms;
@@ -11,6 +13,7 @@ class Property {
   final bool parking;
   final String status;
   final String description;
+
 
   final Agent agent;
   final int reviewsCount;
@@ -32,6 +35,7 @@ class Property {
     required this.agent,
     required this.reviewsCount,
     required this.featuredReview,
+    required this.propertyType,
   });
 }
 

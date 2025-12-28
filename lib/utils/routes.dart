@@ -4,6 +4,8 @@ import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/pending_approval_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
 import 'package:simsar/Layouts/main_layout.dart';
+import 'package:simsar/Screens/favourites_screen.dart';
+
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
@@ -14,7 +16,7 @@ class AppRouter {
   static const String profile = '/profile';
 
   static final GoRouter router = GoRouter(
-    initialLocation: login,
+    initialLocation: home,
     routes: [
       GoRoute(
         path: login,
@@ -39,7 +41,7 @@ class AppRouter {
           ),
           GoRoute(
             path: favorites,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const FavouritesScreen(),
           ),
           GoRoute(
             path: bookings,

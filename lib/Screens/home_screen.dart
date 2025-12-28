@@ -7,6 +7,7 @@ import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/filter_model.dart';
 import 'package:simsar/Custom_Widgets/Tiles/filter_sheet.dart';
+import 'package:simsar/Models/property_enums.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -30,14 +31,17 @@ void _applyFilters(PropertyFilter newFilter) {
     setState(() {
       activeFilter = newFilter;
       filteredProperties = properties.where((p) {
-        // 1. Filter by Location
-        final matchesLocation = activeFilter.location == null || p.province == activeFilter.location;
-        // 2. Filter by Price
+        // 1. Filter by Province
+        final matchesProvince = activeFilter.province == null || p.province == activeFilter.province;
+        // 2. Filter by City
+        final matchesCity = activeFilter.city == null || p.city == activeFilter.city;
+        // 3. Filter by Type
+        final matchesType = activeFilter.propertyTypes.isEmpty || 
+                    activeFilter.propertyTypes.contains(p.propertyType);
+        // 4. Filter by Price
         final matchesPrice = p.pricePerDay >= activeFilter.minPrice && p.pricePerDay <= activeFilter.maxPrice;
-        // 3. Filter by Type (Assuming your Property model has a 'type' field)
-        // final matchesType = activeFilter.propertyTypes.isEmpty || activeFilter.propertyTypes.contains(p.type);
 
-        return matchesLocation && matchesPrice;
+        return matchesProvince && matchesCity && matchesType && matchesPrice;
       }).toList();
     });
   }
@@ -116,43 +120,79 @@ void _applyFilters(PropertyFilter newFilter) {
 }
 
 
-final dummyProperty = Property(
-  title: "Yafour Villa",
-  province: "Damascus",
-  city: "Yafour Street No.47, RW.001",
-  pricePerDay: 120.0,
-  images: ["assets/images/yafour_villa.jpg"],
-  bedrooms: 2,
-  bathrooms: 1,
-  areaSqft: 450,
-  buildYear: 2021,
-  parking: true,
-  status: "Active",
-  description: "A cozy place to stay.",
-  agent: Agent(
-    name: "John",
-    avatarUrl: "",
-    role: "Owner",
-  ),
-  reviewsCount: 10,
-  featuredReview: Review(
-    reviewerName: "Sam",
-    reviewerAvatar: "",
-    rating: 4,
-    text: "Loved it!",
-  ),
-);
-
 final List<Property> properties = [
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-  dummyProperty,
-];
+  // 1. A Luxury Villa in Rif Dimashq
+  Property(
+    title: "Modern Yafour Estate",
+    province: Province.rifdimashq,
+    city: City.yafour,
+    propertyType: PropertyType.villa,
+    pricePerDay: 450.0,
+    images: ["assets/images/yafour_villa.jpg"],
+    bedrooms: 5,
+    bathrooms: 4,
+    areaSqft: 1200,
+    buildYear: 2022,
+    parking: true,
+    status: "Available",
+    description: "An elegant villa with a private garden and high-end finishes.",
+    agent: Agent(name: "Omar", avatarUrl: "", role: "Premier Agent"),
+    reviewsCount: 15,
+    featuredReview: Review(
+      reviewerName: "Laila",
+      reviewerAvatar: "",
+      rating: 5,
+      text: "Absolutely stunning location and very private.",
+    ),
+  ),
 
+  // 2. A Cozy Apartment in Damascus
+  Property(
+    title: "Charming Mouhajrin Flat",
+    province: Province.damascus,
+    city: City.mouhajrin,
+    propertyType: PropertyType.apartment,
+    pricePerDay: 85.0,
+    images: ["assets/images/yafour_villa.jpg"],
+    bedrooms: 2,
+    bathrooms: 1,
+    areaSqft: 95,
+    buildYear: 2015,
+    parking: false,
+    status: "Available",
+    description: "Authentic Damascus living with a great view of the city.",
+    agent: Agent(name: "Sami", avatarUrl: "", role: "Owner"),
+    reviewsCount: 8,
+    featuredReview: Review(
+      reviewerName: "Hasan",
+      reviewerAvatar: "",
+      rating: 4,
+      text: "Great location, very close to the market.",
+    ),
+  ),
+
+  // 3. A Seaside Penthouse in Latakia
+  Property(
+    title: "Blue Wave Penthouse",
+    province: Province.latakia,
+    city: City.alkournish,
+    propertyType: PropertyType.penthouse,
+    pricePerDay: 210.0,
+    images: ["assets/images/yafour_villa.jpg"],
+    bedrooms: 3,
+    bathrooms: 2,
+    areaSqft: 250,
+    buildYear: 2019,
+    parking: true,
+    status: "Available",
+    description: "Spacious penthouse overlooking the Mediterranean Sea.",
+    agent: Agent(name: "Maya", avatarUrl: "", role: "Broker"),
+    reviewsCount: 22,
+    featuredReview: Review(
+      reviewerName: "Zaid",
+      reviewerAvatar: "",
+      rating: 5,
+      text: "The sunset from the balcony is worth every penny.",
+    ),
+  ),
+];

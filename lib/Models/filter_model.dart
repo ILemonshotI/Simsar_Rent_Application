@@ -1,20 +1,24 @@
+import 'package:simsar/Models/property_enums.dart';
 class PropertyFilter {
-  String? location;
-  List<String> propertyTypes;
+  Province? province;
+  City? city;
+  List<PropertyType> propertyTypes;
   double minPrice;
   double maxPrice;
 
   PropertyFilter({
-    this.location,
+    this.province,
+    this.city,
     this.propertyTypes = const [],
     this.minPrice = 10,
-    this.maxPrice = 100,
+    this.maxPrice = 1000,
   });
 
   // Create a copy to avoid modifying state before "Apply" is pressed
   PropertyFilter copy() {
     return PropertyFilter(
-      location: location,
+      province: province,
+      city: city,
       propertyTypes: List.from(propertyTypes),
       minPrice: minPrice,
       maxPrice: maxPrice,

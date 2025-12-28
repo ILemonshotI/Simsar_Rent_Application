@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simsar/Models/filter_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/property_enums.dart';
+
 void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Function(PropertyFilter) onApply) {
   PropertyFilter tempFilter = currentFilter.copy();
 
@@ -17,27 +18,39 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: SAppColors.background, borderRadius: BorderRadius.circular(10)))),
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: SAppColors.background,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const Center(
+                  child: Text(
+                    "Filter",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: SAppColors.secondaryDarkBlue,
+                    ),
+                  ),
+                ),
 
-                const Center(child: Text("Filter", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: SAppColors.secondaryDarkBlue))),
-
-                const Text("Province", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
-
-                DropdownButton<Province?>(
+                const Text(
+                  "Province",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray),
+                ),
+                DropdownButton<Province>(
                   value: tempFilter.province,
                   hint: const Text("Select Province"),
                   isExpanded: true,
-                  items: [
-                    // This item represents the "No Filter" state
-                    const DropdownMenuItem<Province?>(
-                      value: null, 
-                      child: Text("Show All Provinces"),
-                    ),
-                    ...Province.values.map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e.displayName),
-                    )),
-                  ],
+                  items: Province.values.map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e.displayName),
+                  )).toList(),
                   onChanged: (val) {
                     setModalState(() {
                       tempFilter.province = val;
@@ -48,29 +61,27 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
 
                 const SizedBox(height: 20),
 
-                const Text("City", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
-
-                DropdownButton<City?>(
+                const Text(
+                  "City",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray),
+                ),
+                DropdownButton<City>(
                   value: tempFilter.city,
-                  hint: Text(tempFilter.province == null ? "Select province first" : "Select City"),
+                  hint: Text(tempFilter.province == null ? "Select a province first" : "Select City"),
                   isExpanded: true,
-                  items: [
-                    const DropdownMenuItem<City?>(
-                      value: null, 
-                      child: Text("Show All Cities"),
-                    ),
-                    ...City.getByProvince(tempFilter.province).map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e.displayName),
-                    )),
-                  ],
+                  items: City.getByProvince(tempFilter.province).map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e.displayName),
+                  )).toList(),
                   onChanged: tempFilter.province == null
                       ? null
                       : (val) => setModalState(() => tempFilter.city = val),
                 ),
 
-                const Text("Property Type", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
-
+                const Text(
+                  "Property Type",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray),
+                ),
                 ...PropertyType.values.map((type) => CheckboxListTile(
                       title: Text(type.displayName),
                       value: tempFilter.propertyTypes.contains(type),
@@ -81,14 +92,15 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
                       },
                     )),
 
-                const Text("Price Range", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
-
+                const Text(
+                  "Price Range",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray),
+                ),
                 RangeSlider(
                   values: RangeValues(tempFilter.minPrice, tempFilter.maxPrice),
                   min: 10,
                   max: 1000,
                   divisions: 20,
-                  // Rounding prevents long decimal strings in the tooltip
                   labels: RangeLabels(
                     "\$${tempFilter.minPrice.round()}",
                     "\$${tempFilter.maxPrice.round()}",
@@ -103,12 +115,11 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
 
                 Row(
                   children: [
-                    // Inverted "Reset" Button
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
                           setModalState(() {
-                            tempFilter = PropertyFilter(); // Reset to defaults
+                            tempFilter = PropertyFilter();
                           });
                         },
                         style: OutlinedButton.styleFrom(
@@ -120,10 +131,7 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
                         child: const Text("Reset", style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ),
-
                     const SizedBox(width: 16),
-
-                    // "Apply" Button
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {

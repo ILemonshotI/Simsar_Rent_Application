@@ -50,7 +50,7 @@ class ApartmentSearchTile extends StatelessWidget {
 
                     // Location
                     Text(
-                      "${property.province}, ${property.city}",
+                      "${property.province.displayName}, ${property.city.displayName}",
                       style: STextTheme.lightTextTheme.bodyMedium,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
