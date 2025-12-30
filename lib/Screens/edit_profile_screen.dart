@@ -1,175 +1,115 @@
-
 import 'package:flutter/material.dart';
-import 'package:simsar/Custom_Widgets/Text_Fields/text_field.dart';
-import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
-import 'package:simsar/Custom_Widgets/Text_Fields/date_of_birth_field.dart';
-import 'package:simsar/Custom_Widgets/Buttons/add_profile_picture.dart';
-import 'dart:typed_data';
-//import 'package:simsar/utils/image_path_grabber.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Theme/app_colors.dart';
-import 'package:simsar/Custom_Widgets/Buttons/primary_button.dart';
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+import 'package:simsar/Custom_Widgets/Tiles/read_only_field.dart';
+import 'dart:typed_data';
+import 'package:simsar/Custom_Widgets/Tiles/read_only_password_field.dart';
+class ProfileDetailsViewScreen extends StatelessWidget {
+  const ProfileDetailsViewScreen({super.key});
 
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
-}
+  final Uint8List? profilePhoto = null; // Replace with actual photo data if available
+  final String firstName = 'Ahmad';
+  final String lastName = 'Al-Hassan';
+  final String phone = '0991234567';
+  final String birthday = '12 / 04 / 1999';
+  final String password = '123456';
+  String get fullName => '$firstName $lastName';
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
-
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  int? userBirthDay;
-  int? userBirthMonth;
-  int? userBirthYear;
-  Uint8List? userProfileImage;
-  Uint8List? userIDFrontImage;
-  Uint8List? userIDBackImage;
-  String? userProfileImagePath;
-  String? userIDFrontImagePath;
-  String? userIDBackImagePath;
-
-
-  @override
-  void dispose() {
-    phoneController.dispose();
-    passwordController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              // 🔹 Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: SAppColors.secondaryDarkBlue,
-                          ),
-                        onPressed: () => context.pop(),
-                          ),
-                      const Text(
-                        "Edit Profile",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: SAppColors.secondaryDarkBlue,
-                          ),
-                          ),
-                      const SizedBox(width: 72), 
-                        ],
-                      ),
-
-                  const SizedBox(height: 48),
-                  SProfilePhotoButton(
-                    onImageSelected: (Uint8List? img) {
-                      setState(() {
-                        userProfileImage = img;
-                      });
-                    },
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: SAppColors.secondaryDarkBlue,
+                    ),
+                    onPressed: () => context.pop(),
                   ),
-                  const SizedBox(height: 64),
-                  STextField(
-                      labelText: "First Name",
-                      controller: firstNameController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "First name is required";
-                        }
-                        final nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
-                        if (!nameRegExp.hasMatch(value)) {
-                          return "Only alphabets";
-                        }
-                        return null;
-                      }),
-                  const SizedBox(height: 16),
-                  STextField(
-                      labelText: "Last Name",
-                      controller: lastNameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Last name is required";
-                        }
-                        final nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
-                        if (!nameRegExp.hasMatch(value)) {
-                          return "Only alphabets";
-                        }
-                        return null;
-                      }),
-                  const SizedBox(height: 16),
-                  STextField(
-                      labelText: "Phone Number",
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Phone number is required";
-                        }
-                        final phoneRegExp = RegExp(r'^09[0-9]{8}$');
-                        if (!phoneRegExp.hasMatch(value)) {
-                          return "Format must be 09XXXXXXXX";
-                        }
-                        return null;
-                      }),
-                  const SizedBox(height: 16),
-                  SPasswordField(
-                      labelText: "Password",
-                      controller: passwordController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Password is required";
-                        }
-                        if (value.length < 6) {
-                          return "Password cant contain less than 6 characters";
-                        }
-                        return null;
-                      }),
-                  const SizedBox(height: 32),
-                  
-                      
-                  SDatePickerField(
-                     labelText: "Birthday",
-                     onDateSelected: (date) {
-                     setState(() {
-                       userBirthDay = date.day;
-                       userBirthMonth = date.month;
-                       userBirthYear = date.year;
-                       print('Selected Date: $userBirthDay/$userBirthMonth/$userBirthYear');
-                            });
-                          },
-                        ),
-                      
-                      const SizedBox(height: 72),
-
-                  SPrimaryButton(
-                    text: "Save Changes",
-                    onPressed: () {},
+                  const Text(
+                    "Profile Details",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: SAppColors.secondaryDarkBlue,
+                    ),
                   ),
-                      
-                    ],
+                  const SizedBox(width: 72),
+                ],
+              ),
+
+              const SizedBox(height: 48),
+
+              // 🔹 Profile image (display only)
+              CircleAvatar(
+              radius: 70,
+              backgroundColor: SAppColors.white,
+              backgroundImage: profilePhoto != null
+                  ? MemoryImage(profilePhoto!) as ImageProvider
+                : const AssetImage('assets/images/profile_placeholder.png'),
+            // Optional: Add a foreground image or child if you want to overlay something
+            onBackgroundImageError: (exception, stackTrace) {
+            debugPrint("Error loading profile image: $exception");
+          },
+            ),
+
+              const SizedBox(height: 64),
+
+
+              // 🔹 Read-only fields
+              SReadOnlyField(
+                labelText: "Full Name",
+                value: fullName,
+                prefixIcon: const Icon(Icons.person, color: SAppColors.secondaryDarkBlue),
+              ),
+              const SizedBox(height: 32),
+
+              
+              SReadOnlyField(
+                labelText: "Phone Number",
+                value: phone,
+                prefixIcon: const Icon(Icons.phone, color: SAppColors.secondaryDarkBlue),
+              ),
+              const SizedBox(height: 32),
+
+              SReadOnlyPasswordField(
+                labelText: "Password",
+                value: password,
+              ),
+              const SizedBox(height: 32),
+
+              SReadOnlyField(
+                labelText: "Birthday",
+                value: birthday,
+                prefixIcon: const Icon(Icons.cake, color: SAppColors.secondaryDarkBlue),
+              ),
+              const SizedBox(height: 64),
+
+              Center(
+              child: SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Log Out"),
+                ),
               ),
             ),
+            ],
           ),
+        ),
       ),
     );
   }

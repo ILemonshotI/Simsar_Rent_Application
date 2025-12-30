@@ -71,8 +71,8 @@ Widget build(BuildContext context) {
                 ),
                 const SizedBox(height: 48),
                 ProfileTile(
-                icon: Icons.settings,
-                title: 'Edit Profile',
+                icon: Icons.person,
+                title: 'Profile Details',
                 route: '/edit-profile',
                 ),
                 SizedBox(height: 20),
