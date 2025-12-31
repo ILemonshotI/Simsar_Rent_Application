@@ -2,34 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:simsar/utils/search_delegate.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_theme.dart';
-import 'package:simsar/Models/property_model.dart';
-
-
 class SPropertySearchBar extends StatelessWidget {
-  final List<Property> propertiesList;
-  final Function(Property) onSelected;
-  final VoidCallback onFilterTap;
+  final List<String> sourceList;
+  final Function(String) onSelected;
 
   const SPropertySearchBar({
     super.key, 
-    required this.propertiesList, 
-    required this.onSelected,
-    required this.onFilterTap,
+    required this.sourceList, 
+    required this.onSelected
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () async {
         // This triggers the full-screen search logic
-        final Property? selectedProperty = await showSearch<Property?>(
+        final String? selected = await showSearch<String>(
           context: context,
-          delegate: ApartmentSearchDelegate(propertiesList),
+          delegate: ApartmentSearchDelegate(sourceList),
         );
-
-        if (selectedProperty != null) {
-           onSelected(selectedProperty);
-           print(selectedProperty.title);
+        
+        if (selected != null && selected.isNotEmpty) {
+          onSelected(selected);
         }
       },
       child: Container(
@@ -50,10 +44,7 @@ class SPropertySearchBar extends StatelessWidget {
                 style: STextTheme.lightTextTheme.bodyMedium, // Replace with STextTheme hint style
               ),
             ),
-            IconButton(
-            onPressed: onFilterTap,
-            icon: const Icon(Icons.tune_rounded, color: SAppColors.secondaryDarkBlue),
-          ),
+            const Icon(Icons.tune_rounded, color: SAppColors.secondaryDarkBlue),
           ],
         ),
       ),

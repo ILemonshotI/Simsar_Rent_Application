@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class DioClient {
   static final Dio dio = Dio(
@@ -9,7 +10,18 @@ class DioClient {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer 38|nW8iFDFgClx7rNqG6uCrZN5GJm2DgEXn2zYhEphX4bd81cea'
+
       },
     ),
-  );
+  )..interceptors.add( LogInterceptor(
+    request: true,
+    requestBody: true,
+    requestHeader: true,
+    responseBody: true,
+    responseHeader: false,
+    error: true,
+    logPrint: (obj) => debugPrint(obj.toString()),
+  ),);
+
 }

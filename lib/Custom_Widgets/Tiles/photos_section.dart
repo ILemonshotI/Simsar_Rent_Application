@@ -1,14 +1,16 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-//import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../utils/image_picker.dart' as picker;
 
 class PhotosSection extends StatefulWidget {
-  final List<String> initialPhotos;
-  final ValueChanged<List<String>> onPhotosChanged;
+  final List<String> initialImageUrls; // existing photos (URLs)
+  final ValueChanged<List<Uint8List>> onPhotosChanged; // new photos only
 
   const PhotosSection({
     super.key,
-    required this.initialPhotos,
+    required this.initialImageUrls,
     required this.onPhotosChanged,
   });
 
@@ -16,26 +18,29 @@ class PhotosSection extends StatefulWidget {
   State<PhotosSection> createState() => _PhotosSectionState();
 }
 
+
 class _PhotosSectionState extends State<PhotosSection> {
- // final picker = ImagePicker();
-  late List<String> photos;
+  late List<String> existingPhotos;
+  final List<Uint8List> newPhotos = [];
 
   @override
   void initState() {
     super.initState();
-    photos = List.of(widget.initialPhotos);
+    existingPhotos = List.of(widget.initialImageUrls);
   }
 
-  // Future<void> _addPhoto() async {
-  //   final image = await picker.pickImage(source: ImageSource.gallery);
-  //   if (image == null) return;
-  //
-  //   setState(() {
-  //     photos.add(image.path);
-  //   });
-  //
-  //   widget.onPhotosChanged(photos);
-  // }
+  Future<void> _addPhoto() async {
+    final Uint8List? image =
+    await picker.pickImage(ImageSource.gallery);
+
+    if (image == null) return;
+
+    setState(() {
+      newPhotos.add(image);
+    });
+
+    widget.onPhotosChanged(newPhotos);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,34 +55,53 @@ class _PhotosSectionState extends State<PhotosSection> {
           height: 90,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: photos.length + 1,
+            itemCount: newPhotos.length +existingPhotos.length + 1,
             separatorBuilder: (_, __) => const SizedBox(width: 8),
             itemBuilder: (context, index) {
-              if (index == photos.length) {
-                return GestureDetector(
-                  // onTap: _addPhoto,
-                  child: Container(
-                    width: 90,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: theme.colorScheme.outline,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(Icons.add),
-                  ),
-                );
-              }
+// Add photo button
+if (index == existingPhotos.length + newPhotos.length) {
+return GestureDetector(
+onTap: _addPhoto,
+child: Container(
+width: 90,
+decoration: BoxDecoration(
+border: Border.all(color: theme.colorScheme.outline),
+borderRadius: BorderRadius.circular(8),
+),
+child: const Icon(Icons.add),
+),
+);
+}
 
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.file(
-                  File(photos[index]),
-                  width: 90,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
+    // Existing network photos
+    if (index < existingPhotos.length) {
+    return ClipRRect(
+    borderRadius: BorderRadius.circular(8),
+    child: Image.network(
+    existingPhotos[index],
+    width: 90,
+    fit: BoxFit.cover,
+    ),
+    );
+    }
+
+    // Newly added photos
+    final newIndex = index - existingPhotos.length;
+    return ClipRRect(
+    borderRadius: BorderRadius.circular(8),
+    child: Image.memory(
+    newPhotos[newIndex],
+    width: 90,
+    fit: BoxFit.cover,
+    ),
+    );
+    }
+
+
+    // Photo preview
+
+
+
           ),
         ),
       ],

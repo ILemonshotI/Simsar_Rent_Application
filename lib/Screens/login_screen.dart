@@ -7,13 +7,13 @@ import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
-import '../Storage/token_storage.dart';
-
-import '../Network/api_client.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Network/api_client.dart';
 //import 'package:simsar/Screens/register_screen.dart';
-//import 'package:simsar/Screens/home_screen.dart';
+// import 'package:simsar/Screens/home_screen.dart';
+import '../Storage/token_storage.dart';
+
+import '../Network/api_client.dart';
 class LoginScreen extends StatefulWidget {
 
   const LoginScreen({super.key});
@@ -73,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           e.response?.data['message'] ?? 'Login failed';
       print(errorMessage);
 
+      // Optional: show snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(errorMessage),
@@ -85,6 +86,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+  void _handleLogin() {
+
+    // 2. Trigger validation
+    if (_formKey.currentState!.validate()) {
+      // If valid, proceed with login
+      String phone = phoneController.text.trim();
+      String password = passwordController.text;
+      print('Login Success: $phone , $password');
+    } else {
+      print('Validation failed');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

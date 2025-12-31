@@ -4,7 +4,7 @@ import 'package:simsar/Theme/text_theme.dart';
 
 import '../../Theme/app_colors.dart';
 import '../../Theme/app_theme.dart';
-import '../../models/property_model.dart';
+import '../../models_temp/property_model.dart';
 
 class HeaderSection extends StatelessWidget {
   final Property property;
@@ -32,7 +32,7 @@ class HeaderSection extends StatelessWidget {
                     const Icon(Icons.location_on, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      property.location,
+                      property.province,
                       style: STextTheme.lightTextTheme.bodyMedium,
                     ),
                   ],
@@ -44,7 +44,7 @@ class HeaderSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "\$${property.pricePerMonth.toInt()}",
+                "\$${property.pricePerDay.toInt()}",
                 style: STextTheme.lightTextTheme.bodyMedium,
               ),
               Text(

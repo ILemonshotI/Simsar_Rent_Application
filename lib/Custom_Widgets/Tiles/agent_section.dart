@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../models/property_model.dart';
+import '../../models_temp/property_model.dart';
 
 class AgentSection extends StatelessWidget {
   final Agent agent;
