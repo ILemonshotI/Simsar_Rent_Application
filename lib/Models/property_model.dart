@@ -37,6 +37,42 @@ class Property {
     required this.featuredReview,
     required this.propertyType,
   });
+
+  factory Property.fromApiJson(Map<String, dynamic> json) {
+  return Property(
+    title: json['title'] ?? '',
+    description: json['description'] ?? '',
+    pricePerDay: double.tryParse(json['price_per_day'].toString()) ?? 0.0,
+    images: List<String>.from(json['images'] ?? []),
+
+    bedrooms: json['rooms'] ?? 0,
+    bathrooms: json['bathrooms'] ?? 0,
+    areaSqft: json['area'] ?? 0,
+    buildYear: json['build_year'] ?? 0,
+    parking: json['parking'] ?? false,
+
+    status: json['is_approved'] == true ? 'Available' : 'Pending',
+
+    province: ProvinceApiMapper.fromApi(json['province']),
+    city: CityApiMapper.fromApi(json['city']),
+    propertyType: PropertyTypeApiMapper.fromApi(json['type']),
+
+    // Backend doesn’t return agent/reviews yet → safe defaults
+    agent: Agent(
+      name: 'Owner',
+      avatarUrl: '',
+      role: 'Owner',
+    ),
+    reviewsCount: 0,
+    featuredReview: Review(
+      reviewerName: '',
+      reviewerAvatar: '',
+      rating: 0,
+      text: '',
+    ),
+  );
+}
+
 }
 
 class Agent {

@@ -28,6 +28,9 @@ class   SAppTheme {
   sliderTheme: SSliderTheme.lightThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.lightOutlinedButtonThemeData,
   datePickerTheme: SDatePickerTheme.lightDatePickerTheme,
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+  color: SAppColors.secondaryDarkBlue,
+),
   ); 
 
   static final ThemeData darkTheme = ThemeData(
@@ -45,5 +48,8 @@ class   SAppTheme {
   sliderTheme: SSliderTheme.darkThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.darkOutlinedButtonThemeData,
   datePickerTheme: SDatePickerTheme.darkDatePickerTheme,
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+  color: SAppColors.secondaryDarkBlue,
+),
   );
   }

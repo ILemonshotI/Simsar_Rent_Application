@@ -27,7 +27,7 @@ class AppRouter {
   static const String about = '/about';
 
   static final GoRouter router = GoRouter(
-    initialLocation: ownerHome,
+    initialLocation: home,
     routes: [
       GoRoute(
         path: login,
