@@ -9,8 +9,6 @@ import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Network/api_client.dart';
-//import 'package:simsar/Screens/register_screen.dart';
-//import 'package:simsar/Screens/home_screen.dart';
 class LoginScreen extends StatefulWidget {
 
   const LoginScreen({super.key});

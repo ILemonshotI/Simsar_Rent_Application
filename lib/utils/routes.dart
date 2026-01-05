@@ -10,7 +10,7 @@ import 'package:simsar/Layouts/main_layout.dart';
 import 'package:simsar/Screens/favourites_screen.dart';
 import 'package:simsar/Screens/profile_screen.dart';
 import 'package:simsar/Layouts/owner_layout.dart';
-
+import 'package:simsar/Screens/wallet_screen.dart';
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
@@ -25,6 +25,7 @@ class AppRouter {
   static const String ownerBookingRequests = '/owner-booking-requests';
   static const String ownerProfile = '/owner-profile';
   static const String about = '/about';
+  static const String wallet = '/wallet';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -48,6 +49,13 @@ class AppRouter {
       GoRoute(
         path: about,
         builder: (context, state) => const AboutPage(),
+      ),
+      GoRoute(
+        path: wallet,
+        builder: (context, state) {
+          final amount = state.extra as double? ?? 0.0; 
+          return WalletScreen(amount: amount);
+        },
       ),
       ShellRoute(
         builder: (context, state, child) {

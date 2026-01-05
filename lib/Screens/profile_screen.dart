@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
-import 'package:simsar/Models/property_enums.dart';
 import 'dart:typed_data';
 import 'package:simsar/Theme/text_theme.dart';
 import 'package:simsar/Custom_Widgets/Tiles/profile_tile.dart';
+import 'package:simsar/Network/api_client.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -14,10 +13,49 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Uint8List? profilePhoto; 
-  String profileName = "Profile Name";
+  Map<String, dynamic>? userData;
+  bool isLoading = false;
+  String? errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProfile();
+  }
+
+  Future<void> _fetchProfile() async {
+    try {
+      setState(() {
+        isLoading = true;
+        errorMessage = null;
+      });
+
+      // AuthInterceptor handles the token automatically
+      final response = await DioClient.dio.get('/api/me');
+
+      setState(() {
+        userData = response.data;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = "Failed to load profile info";
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
  @override
 Widget build(BuildContext context) {
+  final String firstName = userData?['first_name'] ?? "";
+  final String lastName = userData?['last_name'] ?? "";
+  final String fullName = (firstName.isEmpty && lastName.isEmpty) 
+      ? "Guest User" 
+      : "$firstName $lastName";
+
+  final String? photoUrl = userData?['photo'];    
   return SafeArea(
     child: SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -50,54 +88,80 @@ Widget build(BuildContext context) {
           ),
 
           const SizedBox(height: 48),
-          Center(
-            child: Column(
-              children: [
-                CircleAvatar(
-              radius: 70,
-              backgroundColor: SAppColors.white,
-              backgroundImage: profilePhoto != null
-                  ? MemoryImage(profilePhoto!) as ImageProvider
-                : const AssetImage('assets/images/profile_placeholder.png'),
-            // Optional: Add a foreground image or child if you want to overlay something
-            onBackgroundImageError: (exception, stackTrace) {
-            debugPrint("Error loading profile image: $exception");
-          },
-            ),
-                const SizedBox(height: 16),
-                 Text(
-                  profileName,
-                  style: STextTheme.lightTextTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600, color: SAppColors.secondaryDarkBlue),
+            if (isLoading)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40),
+                  child: CircularProgressIndicator(),
                 ),
-                const SizedBox(height: 48),
-                ProfileTile(
-                icon: Icons.person,
-                title: 'Profile Details',
-                route: '/edit-profile',
+              )
+            else if (errorMessage != null)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Text(errorMessage!, style: const TextStyle(color: SAppColors.error)),
                 ),
-                SizedBox(height: 20),
+              )
+            else
+              Center(
+                child: Column(
+                  children: [
+                    // PROFILE IMAGE
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundColor: SAppColors.white,
+                      backgroundImage: (photoUrl != null && photoUrl.isNotEmpty)
+                          ? NetworkImage(photoUrl) as ImageProvider
+                          : const AssetImage('assets/images/profile_placeholder.png'),
+                      onBackgroundImageError: (exception, stackTrace) {
+                        debugPrint("Error loading profile image: $exception");
+                      },
+                    ),
 
-                ProfileTile(
-                  icon: Icons.info_outline,
-                  title: 'About',
-                  route: '/about',
-                ),
-                SizedBox(height: 20),
+                    const SizedBox(height: 16),
 
-                ProfileTile(
-                  icon: Icons.account_balance_wallet_outlined,
-                  title: 'Wallet',
-                  route: '/wallet',
+                    // FULL NAME
+                    Text(
+                      fullName,
+                      style: STextTheme.lightTextTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: SAppColors.secondaryDarkBlue,
+                      ),
+                    ),
+
+                    const SizedBox(height: 48),
+
+                    // MENU TILES
+                    ProfileTile(
+                      icon: Icons.person,
+                      title: 'Profile Details',
+                      route: '/edit-profile',
+                    ),
+                    const SizedBox(height: 20),
+                    ProfileTile(
+                      icon: Icons.info_outline,
+                      title: 'About',
+                      route: '/about',
+                    ),
+                    const SizedBox(height: 20),
+                    ProfileTile(
+                      icon: Icons.account_balance_wallet_outlined,
+                      title: 'Wallet',
+                      route: '/wallet',
+                      onTap: () {
+                        // Calculate the amount from the API data we fetched earlier
+                        final walletValue = userData?['wallet'];
+                        final double amount = double.tryParse(walletValue.toString()) ?? 0.0;
+
+                        context.push('/wallet', extra: amount);
+                      },
+                    ),
+                  ],
                 ),
+              ),
           ],
-         ),
-          
-    ),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
-}
-
-
