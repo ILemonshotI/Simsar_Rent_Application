@@ -37,15 +37,22 @@ class PropertyTile extends StatelessWidget {
               // 1. Image from the images list
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  property.images.isNotEmpty ? property.images.first : '',
-                  width: 80,
-                  height: 62,
-                  fit: BoxFit.cover,
-                  // Fallback for empty/broken links
-                  errorBuilder: (context, error, stackTrace) => 
-                      Container(color: SAppColors.textGray, width: 80, height: 62),
-                ),
+                child: property.images.isNotEmpty && property.images.first.startsWith('http')
+                  ? Image.network(
+                      property.images.first,
+                      width: 80,
+                      height: 62,
+                      fit: BoxFit.cover,
+                      // Shows while the image is downloading
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(color: SAppColors.textGray, width: 80, height: 62);
+                      },
+                      // Fallback for broken links
+                      errorBuilder: (context, error, stackTrace) => 
+                          Container(color: SAppColors.textGray, width: 80, height: 62),
+                    )
+                  : Container(color: SAppColors.textGray, width: 80, height: 62),
               ),
               const SizedBox(width: 12),
               
@@ -92,14 +99,14 @@ class PropertyTile extends StatelessWidget {
            Positioned(
             top: -8, // Adjusting for IconButton padding
             right: -8,
-            child: FavoriteButton(), 
+            child: FavoriteButton(property: property), 
           ),
 
           // 4. Rating (Bottom Right)
           Positioned(
             bottom: 0,
             right: 0,
-            child: RatingTile(rating: property.featuredReview.rating.toDouble()),
+            child: RatingTile(rating: property.reviewsAvgRating,),
           ),
         ],
       ),

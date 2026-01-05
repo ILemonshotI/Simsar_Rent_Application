@@ -7,7 +7,6 @@ import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/filter_model.dart';
 import 'package:simsar/Custom_Widgets/Tiles/filter_sheet.dart';
-import 'package:simsar/Models/property_enums.dart';
 import 'package:simsar/Network/api_client.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (filter?.city != null)
           'city': filter!.city!.displayName,
 
-        // Property Types (API expects string)
+        // Property Types 
         if (filter?.propertyTypes.isNotEmpty == true)
           'type': filter!.propertyTypes
               .map((e) => e.displayName)
@@ -66,6 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
         final fetchedProperties =
             data.map((e) => Property.fromApiJson(e)).toList();
+
+        // Fetching favourites
+        final favResponse = await DioClient.dio.get('/api/favorites');
+        final List favData = favResponse.data['data'];
+
+        final favIds = favData.map((item) => item['apartment_id'] as int).toSet();
+
+        for (var property in fetchedProperties) {
+          if (favIds.contains(property.id)) {
+            property.isFavorite = true;
+          }
+        }
 
         setState(() {
           properties = fetchedProperties;

@@ -8,7 +8,7 @@ class RatingTile extends StatelessWidget {
 
   const RatingTile({
     super.key, 
-    this.rating = 4.5,
+    this.rating = 0,
   });
 
   @override
@@ -30,7 +30,7 @@ class RatingTile extends StatelessWidget {
           ),
           const SizedBox(width: 2),
           Text(
-            rating.toString(),
+            rating.toStringAsFixed(1),
             style: STextTheme.lightTextTheme.displaySmall,
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:simsar/Models/property_enums.dart';
 class Property {
+  final int id;
   final String title;
   final Province province; 
   final City city;
@@ -13,6 +14,8 @@ class Property {
   final bool parking;
   final String status;
   final String description;
+  final double reviewsAvgRating;
+  bool isFavorite;
 
 
   final Agent agent;
@@ -20,6 +23,7 @@ class Property {
   final Review featuredReview;
 
   Property({
+    required this.id,
     required this.title,
     required this.province,
     required this.city,
@@ -36,10 +40,13 @@ class Property {
     required this.reviewsCount,
     required this.featuredReview,
     required this.propertyType,
+    required this.reviewsAvgRating,
+    this.isFavorite = false,
   });
 
   factory Property.fromApiJson(Map<String, dynamic> json) {
   return Property(
+    id: json['id'] ?? 0,
     title: json['title'] ?? '',
     description: json['description'] ?? '',
     pricePerDay: double.tryParse(json['price_per_day'].toString()) ?? 0.0,
@@ -56,6 +63,8 @@ class Property {
     province: ProvinceApiMapper.fromApi(json['province']),
     city: CityApiMapper.fromApi(json['city']),
     propertyType: PropertyTypeApiMapper.fromApi(json['type']),
+    reviewsAvgRating: double.tryParse(json['reviews_avg_rating']?.toString() ?? '') ?? 0.0,
+    isFavorite: json['is_favorite'] ?? false,
 
     // Backend doesn’t return agent/reviews yet → safe defaults
     agent: Agent(
@@ -71,6 +80,7 @@ class Property {
       text: '',
     ),
   );
+  
 }
 
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
-import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/filter_model.dart';
@@ -94,6 +93,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
 final List<Property> properties = [
   // 1. A Luxury Villa in Rif Dimashq
   Property(
+    id: 1,
     title: "Modern Yafour Estate",
     province: Province.rifdimashq,
     city: City.yafour,
@@ -107,6 +107,7 @@ final List<Property> properties = [
     parking: true,
     status: "Available",
     description: "An elegant villa with a private garden and high-end finishes.",
+    reviewsAvgRating: 4.8,
     agent: Agent(name: "Omar", avatarUrl: "", role: "Premier Agent"),
     reviewsCount: 15,
     featuredReview: Review(
@@ -119,6 +120,7 @@ final List<Property> properties = [
 
   // 2. A Cozy Apartment in Damascus
   Property(
+    id: 2,
     title: "Charming Mouhajrin Flat",
     province: Province.damascus,
     city: City.mouhajrin,
@@ -132,6 +134,7 @@ final List<Property> properties = [
     parking: false,
     status: "Available",
     description: "Authentic Damascus living with a great view of the city.",
+    reviewsAvgRating: 4.2,
     agent: Agent(name: "Sami", avatarUrl: "", role: "Owner"),
     reviewsCount: 8,
     featuredReview: Review(
@@ -144,6 +147,7 @@ final List<Property> properties = [
 
   // 3. A Seaside Penthouse in Latakia
   Property(
+    id: 3,
     title: "Blue Wave Penthouse",
     province: Province.latakia,
     city: City.alkournish,
@@ -157,6 +161,7 @@ final List<Property> properties = [
     parking: true,
     status: "Available",
     description: "Spacious penthouse overlooking the Mediterranean Sea.",
+    reviewsAvgRating: 4.7,
     agent: Agent(name: "Maya", avatarUrl: "", role: "Broker"),
     reviewsCount: 22,
     featuredReview: Review(

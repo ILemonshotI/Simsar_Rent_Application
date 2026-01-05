@@ -4,6 +4,7 @@ import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/property_enums.dart';
+import 'package:simsar/Network/api_client.dart';
 class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({super.key});
 
@@ -13,16 +14,51 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
 
-  late List<Property> filteredProperties;
+  List<Property> favorites = [];
+  bool isLoading = true;
+  String? errorMessage;
 
   @override
   void initState() {
     super.initState();
-    // Initially show all properties
-    filteredProperties = List.from(properties);
+    _fetchFavorites();
   }
 
+  Future<void> _fetchFavorites() async {
+    try {
+      setState(() {
+        isLoading = true;
+        errorMessage = null;
+      });
 
+      // The Interceptor automatically adds the Authorization header
+      final response = await DioClient.dio.get('/api/favorites');
+
+      // Based on your JSON, the actual properties are inside 'data' -> 'apartment'
+      final List rawData = response.data['data'];
+
+      final List<Property> fetchedFavorites = rawData.map((item) {
+        // Map the nested 'apartment' object
+        final property = Property.fromApiJson(item['apartment']);
+        // Since it's from the favorites endpoint, we know isFavorite is true
+        property.isFavorite = true; 
+        return property;
+      }).toList();
+
+      setState(() {
+        favorites = fetchedFavorites;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = "Failed to load favorites";
+      });
+      debugPrint("Fav Fetch Error: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
  @override
 Widget build(BuildContext context) {
   return SafeArea(
@@ -59,110 +95,62 @@ Widget build(BuildContext context) {
           const SizedBox(height: 24),
 
           // Property List
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: filteredProperties.length,
-            separatorBuilder: (context, index) => Divider(
-              color: SAppColors.outlineGray.withValues(alpha: 0.25),
-              thickness: 1,
-              indent: 8,
-              endIndent: 8,
-            ),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: PropertyTile(
-                  property: filteredProperties[index],
-                  onTap: () {
-                      // Navigate to details and pass the property object
-                      context.push('/detailsscreen', extra: filteredProperties[index]);
-                    },
+          // CONTENT STATES (Your requested logic pattern)
+            if (isLoading)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40),
+                  child: CircularProgressIndicator(),
                 ),
-              );
-            },
-          ),
-        ],
+              )
+            else if (errorMessage != null)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Text(
+                    errorMessage!,
+                    style: const TextStyle(color: SAppColors.error),
+                  ),
+                ),
+              )
+            else if (favorites.isEmpty)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40),
+                  child: Text("No favorites found"),
+                ),
+              )
+            else
+              // PROPERTY LIST
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: favorites.length,
+                separatorBuilder: (_, __) => Divider(
+                  color: SAppColors.outlineGray.withValues(alpha: 0.25),
+                  thickness: 1,
+                  indent: 8,
+                  endIndent: 8,
+                ),
+                itemBuilder: (context, index) {
+                  final property = favorites[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: PropertyTile(
+                      property: property,
+                      onTap: () {
+                        context.push('/detailsscreen', extra: property);
+                      },
+                    ),
+                  );
+                },
+              ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
 }
 }
 
 
-final List<Property> properties = [
-  // 1. A Luxury Villa in Rif Dimashq
-  Property(
-    title: "Modern Yafour Estate",
-    province: Province.rifdimashq,
-    city: City.yafour,
-    propertyType: PropertyType.villa,
-    pricePerDay: 450.0,
-    images: ["assets/images/yafour_villa.jpg"],
-    bedrooms: 5,
-    bathrooms: 4,
-    areaSqft: 1200,
-    buildYear: 2022,
-    parking: true,
-    status: "Available",
-    description: "An elegant villa with a private garden and high-end finishes.",
-    agent: Agent(name: "Omar", avatarUrl: "", role: "Premier Agent"),
-    reviewsCount: 15,
-    featuredReview: Review(
-      reviewerName: "Laila",
-      reviewerAvatar: "",
-      rating: 5,
-      text: "Absolutely stunning location and very private.",
-    ),
-  ),
-
-  // 2. A Cozy Apartment in Damascus
-  Property(
-    title: "Charming Mouhajrin Flat",
-    province: Province.damascus,
-    city: City.mouhajrin,
-    propertyType: PropertyType.apartment,
-    pricePerDay: 85.0,
-    images: ["assets/images/yafour_villa.jpg"],
-    bedrooms: 2,
-    bathrooms: 1,
-    areaSqft: 95,
-    buildYear: 2015,
-    parking: false,
-    status: "Available",
-    description: "Authentic Damascus living with a great view of the city.",
-    agent: Agent(name: "Sami", avatarUrl: "", role: "Owner"),
-    reviewsCount: 8,
-    featuredReview: Review(
-      reviewerName: "Hasan",
-      reviewerAvatar: "",
-      rating: 4,
-      text: "Great location, very close to the market.",
-    ),
-  ),
-
-  // 3. A Seaside Penthouse in Latakia
-  Property(
-    title: "Blue Wave Penthouse",
-    province: Province.latakia,
-    city: City.alkournish,
-    propertyType: PropertyType.penthouse,
-    pricePerDay: 210.0,
-    images: ["assets/images/yafour_villa.jpg"],
-    bedrooms: 3,
-    bathrooms: 2,
-    areaSqft: 250,
-    buildYear: 2019,
-    parking: true,
-    status: "Available",
-    description: "Spacious penthouse overlooking the Mediterranean Sea.",
-    agent: Agent(name: "Maya", avatarUrl: "", role: "Broker"),
-    reviewsCount: 22,
-    featuredReview: Review(
-      reviewerName: "Zaid",
-      reviewerAvatar: "",
-      rating: 5,
-      text: "The sunset from the balcony is worth every penny.",
-    ),
-  ),
-];

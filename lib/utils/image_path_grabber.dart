@@ -6,7 +6,6 @@ class ImagePathGrabber {
   /// Upload multiple images and return their paths from backend
   static Future<List<String>> uploadImages({
     required List<Uint8List> images,
-    required String token,
   }) async {
     try {
       FormData formData = FormData();
@@ -26,13 +25,6 @@ class ImagePathGrabber {
       final response = await DioClient.dio.post(
         '/api/photos/upload',
         data: formData,
-        options: Options(
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': 'Bearer $token',
-            'Accept': 'application/json',
-          },
-        ),
       );
 
       // Expected response:
