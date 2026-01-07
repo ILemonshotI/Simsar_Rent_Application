@@ -14,10 +14,9 @@ class OwnerHomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return SizedBox(
-      width: 327, // Keep your Figma width
+      width: 327, 
       
       child:Column(
         mainAxisSize: MainAxisSize.min, 
@@ -33,8 +32,8 @@ class OwnerHomeHeader extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               const Icon(
-                Icons.home_outlined,
-                size: 24,
+                Icons.location_city,
+                size: 26,
               ),
             ],
           ),

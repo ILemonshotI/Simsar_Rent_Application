@@ -28,7 +28,7 @@ class AppRouter {
   static const String wallet = '/wallet';
 
   static final GoRouter router = GoRouter(
-    initialLocation: home,
+    initialLocation: ownerHome,
     routes: [
       GoRoute(
         path: login,
