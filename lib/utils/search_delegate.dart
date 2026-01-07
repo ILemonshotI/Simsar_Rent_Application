@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; 
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Custom_Widgets/Tiles/apartment_search_tile.dart';
-
+import 'package:simsar/Theme/text_theme.dart';
 class ApartmentSearchDelegate extends SearchDelegate<Property?> {
   final List<Property> properties;
   
@@ -44,6 +44,36 @@ class ApartmentSearchDelegate extends SearchDelegate<Property?> {
           .toLowerCase()
           .contains(query.toLowerCase());
     }).toList();
+
+    if (results.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/search-null.png',
+                width: 220,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Search not found',
+                style: STextTheme.lightTextTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'No place with such name found, try searching with a different name.',
+                style: STextTheme.lightTextTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return ListView.builder(
       itemCount: results.length,

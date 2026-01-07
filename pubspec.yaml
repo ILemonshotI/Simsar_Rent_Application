@@ -67,6 +67,9 @@ flutter:
     - assets/images/profile_placeholder.png
     - assets/images/wallet_asset.png
     - assets/images/yafour_villa.jpg
+    - assets/images/search-null.png
+    - assets/images/no-bookings.png  
+    - assets/images/no-notifications.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

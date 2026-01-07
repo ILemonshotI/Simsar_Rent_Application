@@ -116,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: "Apartment Listings",
               onNotificationTap: () {
                 debugPrint("Open notifications");
+                context.push('/notifications');
               },
             ),
 
