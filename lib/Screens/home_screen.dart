@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 40),
                   child: Text(
                     errorMessage!,
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(color: SAppColors.error),
                   ),
                 ),
               )
