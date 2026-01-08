@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../Theme/app_colors.dart';
-import '../../Theme/app_theme.dart';
 import '../../models_temp/property_model.dart';
 
 class HeaderSection extends StatelessWidget {
   final Property property;
 
-  const HeaderSection({required this.property});
+  const HeaderSection({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {

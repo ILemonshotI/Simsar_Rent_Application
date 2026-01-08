@@ -6,7 +6,7 @@ import '../../models_temp/property_model.dart';
 class PropertyDetailsGrid extends StatelessWidget {
   final Property property;
 
-  const PropertyDetailsGrid({required this.property});
+  const PropertyDetailsGrid({super.key, required this.property});
 
   Widget _item(String label, String value) {
     return Column(

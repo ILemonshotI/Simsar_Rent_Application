@@ -1,18 +1,20 @@
 import 'package:go_router/go_router.dart';
-import 'package:simsar/Controllers/booking_controller.dart';
+import 'package:simsar/Screens/add_listing_screen.dart';
+import 'package:simsar/Screens/add_review_screen.dart';
+import 'package:simsar/Screens/admin_approval.dart';
 import 'package:simsar/Screens/booking_success_screen.dart';
 import 'package:simsar/Screens/details_screen.dart';
 import 'package:simsar/Screens/my_bookings_screen.dart';
-import 'package:simsar/models_temp/property_model.dart';
 import 'package:simsar/Screens/edit_listing_screen.dart';
 import 'package:simsar/Screens/home_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/pending_approval_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
+import 'package:simsar/Screens/add_review_screen.dart';
 import 'package:simsar/Layouts/main_layout.dart';
 
-import '../Screens/booking_date_screen.dart';
 import '../Screens/booking_edit_screen.dart';
+import '../Screens/booking_request_details.dart';
 import '../Screens/booking_summary_screen.dart';
 class AppRouter {
   static const String home = '/home';
@@ -27,9 +29,12 @@ class AppRouter {
   static const String detailsScreen = '/details';
   static const String bookingDate = '/booking-date';
   static const String bookingSuccess = '/booking-success';
+  static const String addListing = '/add-listing';
+  static const String adminApproval = '/admin-approval';
+  static const String addReview = '/add-review';
 
   static final GoRouter router = GoRouter(
-    initialLocation: '/booking-summary/2',
+    initialLocation: '/booking/6',
     routes: [
 
       GoRoute(
@@ -49,16 +54,16 @@ class AppRouter {
           return MainLayout(child: child);
         },
         routes: [
-          // GoRoute(
-          //   path: '$editListing/:propertyId',
-          //   builder: (context, state) {
-          //     final id = int.parse(state.pathParameters['propertyId']?? '0');
-          //
-          //
-          //
-          //     return EditListingScreen( id: id);
-          //   },
-          // ),
+          GoRoute(
+            path: '$editListing/:propertyId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['propertyId']?? '0');
+
+
+
+              return EditListingScreen( id: id);
+            },
+          ),
           GoRoute(
             path: '$detailsScreen/:propertyId',
             builder: (context, state) {
@@ -88,19 +93,6 @@ class AppRouter {
                   bookingId: state.extra as int);
             }
           ),
-
-
-
-          // GoRoute(
-          //   path: '/booking-date',
-          //   builder: (context, state) {
-          //     final args = state.extra as Map<String, dynamic>;
-          //     return BookingDateScreen(
-          //       propertyId: args['propertyId'],
-          //       controller: args['controller'],
-          //     );
-          //   },
-          // ),
           GoRoute(
             path: home,
             builder: (context, state) => const HomeScreen(),
@@ -116,6 +108,29 @@ class AppRouter {
           GoRoute(
             path: profile,
             builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: '$addReview/:bookingId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['bookingId']?? '0');
+              return AddReviewScreen(bookingId: id);
+            },
+          ),
+
+          GoRoute(
+              path: adminApproval,
+              builder: (context, state) => const AdminApprovalScreen()
+          ),
+          GoRoute(
+              path: addListing,
+              builder: (context, state) => const AddListingScreen()
+          ),
+          GoRoute(
+            path: '/booking/:id',
+            builder: (context, state) {
+              final bookingId = int.parse(state.pathParameters['id']!);
+              return BookingDetailsScreen(bookingId: bookingId);
+            },
           ),
 
         ],

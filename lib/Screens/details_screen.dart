@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:simsar/Network/booking_api.dart';
-import '../Controllers/booking_controller.dart';
 import '../Custom_Widgets/Buttons/primary_button.dart';
 import '../Custom_Widgets/Tiles/agent_section.dart';
 import '../Custom_Widgets/Tiles/description_section.dart';
@@ -11,10 +9,8 @@ import '../Custom_Widgets/Tiles/property_details_grid.dart';
 import '../Custom_Widgets/Tiles/reviews_section.dart';
 import '../Custom_Widgets/Tiles/image_carousel.dart';
 import '../Network/api_client.dart';
-import '../Network/booking_repository.dart';
 import '../Theme/app_colors.dart';
 import '../models_temp/property_model.dart';
-import 'package:dio/dio.dart';
 
 class PropertyDetailsScreen extends StatelessWidget {
   final int propertyId;

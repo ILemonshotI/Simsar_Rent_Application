@@ -5,12 +5,12 @@ class DioClient {
   static final Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://airbnb-production-d781.up.railway.app', // CHANGE THIS
-      connectTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 10),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 38|nW8iFDFgClx7rNqG6uCrZN5GJm2DgEXn2zYhEphX4bd81cea'
+        'Authorization': 'Bearer $token'
 
       },
     ),

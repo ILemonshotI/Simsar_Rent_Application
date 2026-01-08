@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_colors.dart'; // Import your custom colors
 
 class FavoriteButton extends StatefulWidget {
+  const FavoriteButton({super.key});
+
   @override
   _FavoriteButtonState createState() => _FavoriteButtonState();
 }
