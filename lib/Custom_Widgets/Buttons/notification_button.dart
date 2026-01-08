@@ -18,7 +18,7 @@ class NotificationButton extends StatelessWidget {
         height: 44,
         decoration: BoxDecoration(
           // Using a light gray border or background as seen in standard UI kits
-          color: Colors.white, 
+          color: SAppColors.transparent, 
           borderRadius: BorderRadius.circular(33),
           border: Border.all(
             color: SAppColors.outlineGray,

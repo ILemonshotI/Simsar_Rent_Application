@@ -69,40 +69,64 @@ class STextTheme {
   );
 
 // Dark Theme Text Style
-  static const TextTheme darkTextTheme = TextTheme(
-        // Heading: Inter / Semibold / 20
-        titleLarge: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600, // Semibold
-          color: SAppColors.textGray,
-        ),
+    static const TextTheme darkTextTheme = TextTheme(
+    // Heading
+    titleLarge: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: SAppColors.white,
+    ),
 
-        // Widget Headings: Inter / Regular / 16
-        titleMedium: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400, // Regular
-          color: SAppColors.textGray,
-        ),
+    titleMedium: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: SAppColors.white,
+    ),
 
-        // Paragraph: Inter / Regular / 14
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400, // Regular
-          color: SAppColors.textGray,
-        ),
+    titleSmall: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w800,
+      color: SAppColors.lightBlue,
+    ),
 
-         // Description: Inter / Regular / 10
-        bodySmall: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w400, // Regular
-          color: SAppColors.descriptionTextGray,
-        ),
-        
-        // Field Labels: Inter / Semibold / 14
-        labelLarge: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600, // Semibold
-          color: SAppColors.textGray,
-        ),
+    // Body
+    bodyMedium: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: SAppColors.white,
+    ),
+
+    bodySmall: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: SAppColors.white70,
+    ),
+
+    // Labels
+    labelLarge: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: SAppColors.white,
+    ),
+
+    labelSmall: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: SAppColors.error,
+    ),
+
+    // Misc
+    displaySmall: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w800,
+      color: SAppColors.white,
+    ),
+
+    headlineSmall: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: SAppColors.white70,
+    ),
   );
+
 }

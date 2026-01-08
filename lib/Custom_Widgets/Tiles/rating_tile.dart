@@ -17,7 +17,9 @@ class RatingTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         // Use your theme color for the light cream background
-        color: SAppColors.reviewBackground, 
+        color: Theme.of(context).brightness == Brightness.dark
+            ? SAppColors.darkReviewBackground
+            : SAppColors.reviewBackground, 
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

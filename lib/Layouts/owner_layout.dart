@@ -39,7 +39,9 @@ class OwnerLayout extends StatelessWidget {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           iconSize: 24,
-          backgroundColor: SAppColors.background,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? SAppColors.darkBackground
+            : SAppColors.background,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
