@@ -25,7 +25,9 @@ class _SDatePickerFieldState extends State<SDatePickerField> {
       context: context,
       builder: (_) => Container(
         height: 250,
-        color: SAppColors.background,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? SAppColors.darkBackground
+            : SAppColors.background,
         child: Column(
           children: [
             // Toolbar with a "Done" button

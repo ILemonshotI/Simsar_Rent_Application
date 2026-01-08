@@ -65,7 +65,7 @@ void showCalendarSheet(
 
                 const SizedBox(height: 16),
 
-                // Selected range preview (optional but UX 🔥)
+                // Selected range preview 
                 if (tempFilter.start != null)
                   Text(
                     tempFilter.end == null

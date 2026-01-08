@@ -40,7 +40,9 @@ class _SUploadIdButtonState extends State<SUploadIdButton> {
         width: 160,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: SAppColors.background,
+          color: Theme.of(context).brightness == Brightness.dark
+            ? SAppColors.secondaryDarkBlue.withValues(alpha: 0.35)
+            : SAppColors.background,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: SAppColors.outlineGray),
         ),
@@ -52,7 +54,9 @@ class _SUploadIdButtonState extends State<SUploadIdButton> {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: SAppColors.background,
+                color: Theme.of(context).brightness == Brightness.dark
+                 ? SAppColors.secondaryDarkBlue.withValues(alpha: 0.35)
+                 : SAppColors.background,
                 image: _image != null
                     ? DecorationImage(
                         image: MemoryImage(_image!),
@@ -61,7 +65,9 @@ class _SUploadIdButtonState extends State<SUploadIdButton> {
                     : null,
               ),
               child: _image == null
-                  ? const Icon(Icons.camera_alt, color: SAppColors.textGray)
+                  ?  Icon(Icons.camera_alt, color: Theme.of(context).brightness == Brightness.dark
+                      ? SAppColors.white70
+                      : SAppColors.textGray,)
                   : null,
             ),
 
@@ -72,12 +78,16 @@ class _SUploadIdButtonState extends State<SUploadIdButton> {
               child: Text(
                 widget.label,
                 style:  STextTheme.lightTextTheme.bodySmall!.copyWith(
-                  color: SAppColors.textGray),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? SAppColors.white70
+                      : SAppColors.textGray,),
               ),
             ),
 
             // Upload icon
-            const Icon(Icons.upload, color: SAppColors.textGray),
+             Icon(Icons.upload, color: Theme.of(context).brightness == Brightness.dark
+                      ? SAppColors.white70
+                      : SAppColors.textGray,),
           ],
         ),
       ),

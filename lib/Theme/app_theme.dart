@@ -28,6 +28,14 @@ class   SAppTheme {
   sliderTheme: SSliderTheme.lightThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.lightOutlinedButtonThemeData,
   datePickerTheme: SDatePickerTheme.lightDatePickerTheme,
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+  color: SAppColors.secondaryDarkBlue,
+),
+  textSelectionTheme: TextSelectionThemeData(
+      cursorColor: SAppColors.primaryBlue, // The vertical "|" bar
+      selectionColor: SAppColors.primaryBlue.withValues(alpha: 0.3), // Highlight color
+      selectionHandleColor: SAppColors.primaryBlue, // The bubbles at the bottom of the selection
+    ),
   ); 
 
   static final ThemeData darkTheme = ThemeData(
@@ -45,5 +53,13 @@ class   SAppTheme {
   sliderTheme: SSliderTheme.darkThemeData,
   outlinedButtonTheme: SOutlinedButtonTheme.darkOutlinedButtonThemeData,
   datePickerTheme: SDatePickerTheme.darkDatePickerTheme,
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+  color: SAppColors.secondaryDarkBlue,
+),
+  textSelectionTheme: TextSelectionThemeData(
+      cursorColor: SAppColors.primaryBlue, 
+      selectionColor: SAppColors.primaryBlue.withValues(alpha: 0.5),
+      selectionHandleColor: SAppColors.primaryBlue,
+    ),
   );
   }

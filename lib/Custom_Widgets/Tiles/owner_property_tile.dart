@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_colors.dart'; 
-import 'package:simsar/Custom_Widgets/Buttons/favourite_button.dart';
 import 'package:simsar/Custom_Widgets/Tiles/rating_tile.dart';
 import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/text_theme.dart';
-class PropertyTile extends StatelessWidget {
+class OwnerPropertyTile extends StatelessWidget {
   final Property property;
   final VoidCallback onTap;
 
-  const PropertyTile({
+  const OwnerPropertyTile({
     super.key, 
     required this.property,
     required this.onTap,
@@ -26,7 +25,7 @@ class PropertyTile extends StatelessWidget {
       height: 84,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: SAppColors.transparent,
+        color: SAppColors.background,
         borderRadius: BorderRadius.circular(16),
 
       ),
@@ -95,11 +94,15 @@ class PropertyTile extends StatelessWidget {
             ],
           ),
 
-          // 3. Heart Button (Top Right)
+            // 3. Home Icon (Top Right)
            Positioned(
-            top: -8, // Adjusting for IconButton padding
-            right: -8,
-            child: FavoriteButton(property: property), 
+            top: 8,
+            right: 8,
+            child: Icon(
+              Icons.home,
+              size: 20,
+              color: SAppColors.textGray,
+            ),
           ),
 
           // 4. Rating (Bottom Right)

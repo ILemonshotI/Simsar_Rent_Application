@@ -22,8 +22,8 @@ class SAppColors {
   // Page Background
   static const Color background = Color(0xFFF5F5F5);
 
-  // Dark Page Backgroundd
-  static const Color darkBackground = Color(0xFF3E3E42);
+  // Dark Page Background
+  static const Color darkBackground = Color(0xFF1C1C1C);
 
   // Error Colour (600 Red)
   static const Color error = Color(0xFFD92D20);
@@ -42,4 +42,10 @@ class SAppColors {
 
   // Review Background
   static const Color reviewBackground = Color(0xFFFFFAEB);
+
+  // Dark Review Background
+  static const Color darkReviewBackground = Color.fromARGB(255, 77, 77, 77);
+
+  // White with 70% Opacity
+  static const Color white70 = Color.fromARGB(179, 255, 255, 255);
 }

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_theme.dart';
-class MainLayout extends StatelessWidget {
+class OwnerLayout extends StatelessWidget {
   final Widget child;
-  const MainLayout({super.key, required this.child});
+  const OwnerLayout({super.key, required this.child});
 
   static const tabs = [
-    '/home',
-    '/favorites',
-    '/bookings',
-    '/profile',
+    '/owner-home',
+    '/owner-booking-requests',
+    '/owner-profile',
   ];
 
   int _locationToIndex(String location) {
@@ -49,12 +48,8 @@ class MainLayout extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              label: 'Favorite',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.receipt_long),
-              label: 'My Booking',
+              label: 'Booking Requests',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),

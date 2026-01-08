@@ -100,7 +100,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           userIDFrontImage!,
           userIDBackImage!,
         ],
-        token: '1|2wrcw5Xq7Vx2uedN0Uf3gNhmzRA7mDnSjjiD1KlL81be2df3'
       );
       const String baseUrl = "https://airbnb-production-d781.up.railway.app";
 

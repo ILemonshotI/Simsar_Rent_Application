@@ -5,12 +5,14 @@ class ProfileTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final String route;
+  final VoidCallback? onTap;
 
   const ProfileTile({
     super.key,
     required this.icon,
     required this.title,
     required this.route,
+    this.onTap,
   });
 
   @override
@@ -19,9 +21,7 @@ class ProfileTile extends StatelessWidget {
       width: 327,
       height: 24,
       child: InkWell(
-        onTap: () {
-          context.push(route);
-        },
+        onTap: onTap ?? () => context.push(route),
         child: Row(
           children: [
             Icon(

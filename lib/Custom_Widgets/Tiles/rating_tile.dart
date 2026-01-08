@@ -8,7 +8,7 @@ class RatingTile extends StatelessWidget {
 
   const RatingTile({
     super.key, 
-    this.rating = 4.5,
+    this.rating = 0,
   });
 
   @override
@@ -17,7 +17,9 @@ class RatingTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         // Use your theme color for the light cream background
-        color: SAppColors.reviewBackground, 
+        color: Theme.of(context).brightness == Brightness.dark
+            ? SAppColors.darkReviewBackground
+            : SAppColors.reviewBackground, 
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -30,7 +32,7 @@ class RatingTile extends StatelessWidget {
           ),
           const SizedBox(width: 2),
           Text(
-            rating.toString(),
+            rating.toStringAsFixed(1),
             style: STextTheme.lightTextTheme.displaySmall,
           ),
         ],

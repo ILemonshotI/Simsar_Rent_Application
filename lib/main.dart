@@ -8,7 +8,7 @@ void main() {
   runApp(const MyApp());
 }
 
-  @override
+@override
 
 class MyApp extends StatelessWidget {
 
@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
       theme: SAppTheme.lightTheme,
       darkTheme: SAppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      // Just call LoginScreen here. Don't add Scaffold/Center here.
       routerConfig: AppRouter.router,
     );
   }

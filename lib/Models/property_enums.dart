@@ -9,6 +9,17 @@ enum Province {
   final String displayName;
   const Province(this.displayName);
 }
+extension ProvinceApiMapper on Province {
+  static Province fromApi(String? value) {
+    if (value == null) return Province.damascus;
+
+    return Province.values.firstWhere(
+      (p) => p.displayName.toLowerCase() == value.toLowerCase(),
+      orElse: () => Province.damascus,
+    );
+  }
+}
+
 
 enum City {
   // Damascus Cities
@@ -52,6 +63,17 @@ enum City {
     return City.values.where((city) => city.province == province).toList();
   }
 }
+extension CityApiMapper on City {
+  static City fromApi(String? value) {
+    if (value == null) return City.mouhajrin;
+
+    return City.values.firstWhere(
+      (c) => c.displayName.toLowerCase() == value.toLowerCase(),
+      orElse: () => City.mouhajrin,
+    );
+  }
+}
+
 
 enum PropertyType {
   apartment("Apartment"),
@@ -61,4 +83,15 @@ enum PropertyType {
 
   final String displayName;
   const PropertyType(this.displayName);
+}
+
+extension PropertyTypeApiMapper on PropertyType {
+  static PropertyType fromApi(String? value) {
+    if (value == null) return PropertyType.apartment;
+
+    return PropertyType.values.firstWhere(
+      (t) => t.displayName.toLowerCase() == value.toLowerCase(),
+      orElse: () => PropertyType.apartment,
+    );
+  }
 }
