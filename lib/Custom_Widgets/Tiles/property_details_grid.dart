@@ -37,7 +37,7 @@ class PropertyDetailsGrid extends StatelessWidget {
           _item("Bathroom", property.bathrooms.toString()),
           _item("Area", "${property.areaSqft} sqft"),
           _item("Build", property.buildYear.toString()),
-          _item("Parking", property.parking),
+          _item("Parking", property.parking.toString()),
           _item("Status", property.status),
         ],
       ),

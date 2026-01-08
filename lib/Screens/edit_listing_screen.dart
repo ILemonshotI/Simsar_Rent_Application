@@ -30,7 +30,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
     descriptionController =
         TextEditingController(text: widget.apartment.description);
     priceController =
-        TextEditingController(text: widget.apartment.pricePerMonth.toString());
+        TextEditingController(text: widget.apartment.pricePerDay.toString());
 
     bedrooms = widget.apartment.bedrooms;
    // hasParking = widget.apartment.parking;

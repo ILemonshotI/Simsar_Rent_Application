@@ -32,7 +32,7 @@ class HeaderSection extends StatelessWidget {
                     const Icon(Icons.location_on, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      property.location,
+                      "${property.province.displayName}, ${property.city.displayName}",
                       style: STextTheme.lightTextTheme.bodyMedium,
                     ),
                   ],
@@ -44,7 +44,7 @@ class HeaderSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "\$${property.pricePerMonth.toInt()}",
+                "\$${property.pricePerDay.toInt()}",
                 style: STextTheme.lightTextTheme.bodyMedium,
               ),
               Text(
