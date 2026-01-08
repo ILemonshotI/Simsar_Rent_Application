@@ -1,7 +1,7 @@
 // features/booking/data/booking_api.dart
 import 'package:dio/dio.dart';
 import 'package:simsar/Network/api_client.dart';
-import '../models_temp/booking.dart';
+import '../Models/booking.dart';
 
 class BookingApi {
   final Dio dio;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/text_theme.dart';
 import '../../Theme/app_colors.dart';
-import '../../models_temp/property_model.dart';
+import '../../Models/property_model.dart';
 
 class ReviewsSection extends StatelessWidget {
   final int reviewsCount;

@@ -5,7 +5,7 @@ import 'package:simsar/Network/api_client.dart';
 import '../Custom_Widgets/Tiles/bedrooms_counter.dart';
 import '../Custom_Widgets/Tiles/photos_section.dart';
 import '../utils/image_path_grabber.dart';
-import '../models_temp/property_model.dart';
+import '../Models/property_model.dart';
 
 class AddListingScreen extends StatefulWidget {
   const AddListingScreen({super.key});

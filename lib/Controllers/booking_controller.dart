@@ -2,7 +2,7 @@
 // features/booking/controllers/booking_controller.dart
 import 'package:flutter/material.dart';
 import '../Network/booking_repository.dart';
-import '../models_temp/booking.dart';
+import '../Models/booking.dart';
 
 class BookingController extends ChangeNotifier {
 final BookingRepository repository;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_colors.dart'; 
 import 'package:simsar/Custom_Widgets/Buttons/favourite_button.dart';
-import 'package:simsar/models_temp/property_model.dart';
+import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/text_theme.dart';
 class PropertyTile extends StatelessWidget {
   final Property property;

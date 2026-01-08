@@ -10,7 +10,7 @@ import '../Custom_Widgets/Tiles/reviews_section.dart';
 import '../Custom_Widgets/Tiles/image_carousel.dart';
 import '../Network/api_client.dart';
 import '../Theme/app_colors.dart';
-import '../models_temp/property_model.dart';
+import '../Models/property_model.dart';
 
 class PropertyDetailsScreen extends StatelessWidget {
   final int propertyId;

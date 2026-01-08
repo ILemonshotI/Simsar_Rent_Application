@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Network/api_client.dart';
-import 'package:simsar/models_temp/property_model.dart';
+import 'package:simsar/Models/property_model.dart';
 import '../Custom_Widgets/Tiles/bedrooms_counter.dart';
 import '../Custom_Widgets/Tiles/photos_section.dart';
 import '../utils/image_path_grabber.dart'; // <-- uploadPhoto util

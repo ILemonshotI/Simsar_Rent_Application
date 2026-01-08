@@ -8,7 +8,7 @@ import 'package:simsar/Theme/app_theme.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
 import '../Network/api_client.dart';
-import '../models_temp/booking_details_model.dart';
+import '../Models/booking_details_model.dart';
 
 class BookingDetailsScreen extends StatefulWidget {
   final int bookingId;

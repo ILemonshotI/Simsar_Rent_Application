@@ -1,6 +1,6 @@
 // features/booking/widgets/booking_card.dart
 import 'package:flutter/material.dart';
-import '../../models_temp/property_model.dart';
+import '../../Models/property_model.dart';
 
 
 class BookingCard extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../models_temp/property_model.dart';
+import '../../Models/property_model.dart';
 
 class HeaderSection extends StatelessWidget {
   final Property property;

@@ -5,7 +5,7 @@ import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/search_field.dart';
 
-import 'package:simsar/models_temp/property_model.dart';
+import 'package:simsar/Models/property_model.dart';
 import 'package:simsar/Theme/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {

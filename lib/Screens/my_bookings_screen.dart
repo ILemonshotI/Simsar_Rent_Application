@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Network/api_client.dart';
 
-import '../models_temp/booking_model.dart';
-import '../models_temp/property_model.dart';
+import '../Models/booking_model.dart';
+import '../Models/property_model.dart';
 
 // --- MODELS (Paste your Property, Agent, Review models here) ---
 // I am assuming the Property models you provided are in a file named models.dart

@@ -11,8 +11,8 @@ import '../Custom_Widgets/Tiles/booking_card.dart';
 import '../Custom_Widgets/Tiles/calendar_sheet.dart';
 
 import '../Theme/app_colors.dart';
-import '../models_temp/property_model.dart';
-import '../models_temp/date_filter_model.dart';
+import '../Models/property_model.dart';
+import '../Models/date_filter_model.dart';
 
 class BookingSummaryScreen extends StatefulWidget {
   final int propertyId;

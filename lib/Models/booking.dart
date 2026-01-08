@@ -1,4 +1,4 @@
-// features/booking/models_temp/booking.dart
+// features/booking/Models/booking.dart
 class Booking {
   final DateTime startDate;
   final DateTime endDate;
