@@ -21,7 +21,7 @@ class HeaderSection extends StatelessWidget {
               children: [
                 Text(
                   property.title,
-                  style: STextTheme.lightTextTheme.headlineMedium,
+                  style: STextTheme.lightTextTheme.titleLarge,
                 ),
                 const SizedBox(height: 4),
                 Row(
@@ -31,7 +31,7 @@ class HeaderSection extends StatelessWidget {
                     Text(
 
                       "${property.province.displayName}, ${property.city.displayName}",
-                      style: STextTheme.lightTextTheme.bodyMedium,
+                      style: STextTheme.lightTextTheme.headlineMedium,
                     ),
                   ],
                 ),
@@ -43,11 +43,11 @@ class HeaderSection extends StatelessWidget {
             children: [
               Text(
                 "\$${property.pricePerDay.toInt()}",
-                style: STextTheme.lightTextTheme.bodyMedium,
+                style: STextTheme.lightTextTheme.titleSmall,
               ),
               Text(
-                "/month",
-                style: STextTheme.lightTextTheme.bodySmall,
+                "/day",
+                style: STextTheme.lightTextTheme.headlineSmall,
               ),
             ],
           ),

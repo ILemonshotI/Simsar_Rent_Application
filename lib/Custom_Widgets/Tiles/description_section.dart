@@ -14,7 +14,7 @@ class DescriptionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Description", style: STextTheme.lightTextTheme.headlineSmall),
+          Text("Description", style: STextTheme.lightTextTheme.titleMedium),
           const SizedBox(height: 8),
           Text(
             description,

@@ -21,14 +21,13 @@ class PropertyDetailsScreen extends StatelessWidget {
   });
 
   Future<Property> fetchProperty(int propertyId) async {
-    print('/api/apartments/$propertyId');
-    print('BASE URL: ${DioClient.dio.options.baseUrl}');
-    final response = await DioClient.dio.get('/api/apartments/2');
-    print('REQUEST URL: ${response.requestOptions.uri}');
+
+    final response = await DioClient.dio.get('/api/apartments/$propertyId');
+
 
 
     // Adapt fromJson according to your Property model
-    return Property.fromApiJson(response.data);
+    return Property.fromJson(response.data);
   }
 
   Future<List<Review>> fetchReviews(int propertyId) async {
@@ -45,7 +44,7 @@ class PropertyDetailsScreen extends StatelessWidget {
       future: fetchProperty(propertyId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
+          return  Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
@@ -62,10 +61,8 @@ class PropertyDetailsScreen extends StatelessWidget {
 
 
         return Scaffold(
-          backgroundColor: SAppColors.background,
+
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
             leading: const BackButton(),
             actions: [
               IconButton(
@@ -89,7 +86,7 @@ class PropertyDetailsScreen extends StatelessWidget {
                       PropertyDetailsGrid(property: property),
                       const SizedBox(height: 16),
                       DescriptionSection(description: property.description),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
                       AgentSection(agent: property.agent),
                       const SizedBox(height: 16),
                       FutureBuilder<List<Review>>(

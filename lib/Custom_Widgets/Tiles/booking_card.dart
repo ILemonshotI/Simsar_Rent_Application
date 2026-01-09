@@ -1,6 +1,8 @@
 // features/booking/widgets/booking_card.dart
 import 'package:flutter/material.dart';
 import '../../Models/property_model.dart';
+import '../../Theme/app_colors.dart';
+import '../../Theme/text_theme.dart';
 
 
 class BookingCard extends StatelessWidget {
@@ -41,7 +43,7 @@ class BookingCard extends StatelessWidget {
               children: [
                 Text(
                   property.title,
-                  style: theme.textTheme.titleMedium,
+                  style: STextTheme.lightTextTheme.titleMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -49,7 +51,7 @@ class BookingCard extends StatelessWidget {
 
                 Text(
                   property.province.displayName,
-                  style: theme.textTheme.bodySmall,
+                  style:  STextTheme.lightTextTheme.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -59,7 +61,7 @@ class BookingCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${property.pricePerDay}/day',
-                      style: theme.textTheme.titleSmall?.copyWith(
+                      style:  STextTheme.lightTextTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -67,12 +69,12 @@ class BookingCard extends StatelessWidget {
                     Icon(
                       Icons.star,
                       size: 16,
-                      color: theme.colorScheme.secondary,
+                      color:SAppColors.secondaryDarkBlue,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       property.reviewsAvgRating.toStringAsFixed(1),
-                      style: theme.textTheme.bodySmall,
+                      style: STextTheme.lightTextTheme.bodySmall,
                     ),
                   ],
                 ),

@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: PropertyTile(
                       property: property,
                       onTap: () {
-                        context.push('/detailsscreen', extra: property);
+                        context.push('/details/${property.id}');
                       },
                     ),
                   );

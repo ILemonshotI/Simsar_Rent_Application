@@ -50,7 +50,7 @@ class AppRouter {
   static const String addReview = '/add-review';
 
   static final GoRouter router = GoRouter(
-    initialLocation: home,
+    initialLocation: '/details/2',
     routes: [
 
       GoRoute(
@@ -142,7 +142,7 @@ class AppRouter {
           ),
           GoRoute(
             path: profile,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const ProfileScreen(),
           ),
           GoRoute(
             path: '$addReview/:bookingId',

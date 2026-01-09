@@ -12,7 +12,7 @@ class PropertyDetailsGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: STextTheme.lightTextTheme.bodyMedium),
+        Text(label, style: STextTheme.lightTextTheme.titleSmall),
         const SizedBox(height: 4),
         Text(value, style: STextTheme.lightTextTheme.bodyMedium),
       ],
@@ -34,7 +34,7 @@ class PropertyDetailsGrid extends StatelessWidget {
         ),
         children: [
           _item("Bedrooms", property.bedrooms.toString()),
-          _item("Bathroom", property.bathrooms.toString()),
+          _item("Bathrooms", property.bathrooms.toString()),
           _item("Area", "${property.areaSqft} sqft"),
           _item("Build", property.buildYear.toString()),
           _item("Parking", property.parking.toString()),
