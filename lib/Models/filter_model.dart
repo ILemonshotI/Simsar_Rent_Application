@@ -4,7 +4,7 @@ class PropertyFilter {
   City? city;
   List<PropertyType> propertyTypes;
   double minPrice;
-  double maxPrice; 
+  double maxPrice;
 
   PropertyFilter({
     this.province,

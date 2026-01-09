@@ -5,7 +5,7 @@ import '../../Theme/text_theme.dart';
 class DescriptionSection extends StatelessWidget {
   final String description;
 
-  const DescriptionSection({required this.description});
+  const DescriptionSection({super.key, required this.description});
 
   @override
   Widget build(BuildContext context) {

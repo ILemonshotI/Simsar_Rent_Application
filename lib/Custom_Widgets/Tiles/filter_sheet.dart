@@ -30,7 +30,7 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
                   items: [
                     // This item represents the "No Filter" state
                     const DropdownMenuItem<Province?>(
-                      value: null, 
+                      value: null,
                       child: Text("Show All Provinces"),
                     ),
                     ...Province.values.map((e) => DropdownMenuItem(
@@ -56,7 +56,7 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
                   isExpanded: true,
                   items: [
                     const DropdownMenuItem<City?>(
-                      value: null, 
+                      value: null,
                       child: Text("Show All Cities"),
                     ),
                     ...City.getByProvince(tempFilter.province).map((e) => DropdownMenuItem(
@@ -72,14 +72,14 @@ void showFilterSheet(BuildContext context, PropertyFilter currentFilter, Functio
                 const Text("Property Type", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
 
                 ...PropertyType.values.map((type) => CheckboxListTile(
-                      title: Text(type.displayName),
-                      value: tempFilter.propertyTypes.contains(type),
-                      onChanged: (val) {
-                        setModalState(() {
-                          val! ? tempFilter.propertyTypes.add(type) : tempFilter.propertyTypes.remove(type);
-                        });
-                      },
-                    )),
+                  title: Text(type.displayName),
+                  value: tempFilter.propertyTypes.contains(type),
+                  onChanged: (val) {
+                    setModalState(() {
+                      val! ? tempFilter.propertyTypes.add(type) : tempFilter.propertyTypes.remove(type);
+                    });
+                  },
+                )),
 
                 const Text("Price Range", style: TextStyle(fontWeight: FontWeight.bold, color: SAppColors.textGray)),
 

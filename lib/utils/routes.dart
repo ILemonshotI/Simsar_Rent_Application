@@ -1,17 +1,29 @@
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Screens/about_screen.dart';
 import 'package:simsar/Screens/edit_profile_screen.dart';
+import 'package:simsar/Screens/add_listing_screen.dart';
+import 'package:simsar/Screens/add_review_screen.dart';
+import 'package:simsar/Screens/admin_approval.dart';
+import 'package:simsar/Screens/booking_success_screen.dart';
+import 'package:simsar/Screens/details_screen.dart';
+import 'package:simsar/Screens/my_bookings_screen.dart';
+import 'package:simsar/Screens/edit_listing_screen.dart';
 import 'package:simsar/Screens/home_screen.dart';
 import 'package:simsar/Screens/login_screen.dart';
 import 'package:simsar/Screens/notifactions_screen.dart';
 import 'package:simsar/Screens/owner_home.dart';
 import 'package:simsar/Screens/pending_approval_screen.dart';
 import 'package:simsar/Screens/register_screen.dart';
+import 'package:simsar/Screens/add_review_screen.dart';
 import 'package:simsar/Layouts/main_layout.dart';
 import 'package:simsar/Screens/favourites_screen.dart';
 import 'package:simsar/Screens/profile_screen.dart';
 import 'package:simsar/Layouts/owner_layout.dart';
 import 'package:simsar/Screens/wallet_screen.dart';
+
+import '../Screens/booking_edit_screen.dart';
+import '../Screens/booking_request_details.dart';
+import '../Screens/booking_summary_screen.dart';
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
@@ -28,10 +40,19 @@ class AppRouter {
   static const String about = '/about';
   static const String wallet = '/wallet';
   static const String notifications = '/notifications';
+  static const String bookingSummary = '/booking-summary';
+  static const String editListing = '/edit-listing';
+  static const String detailsScreen = '/details';
+  static const String bookingDate = '/booking-date';
+  static const String bookingSuccess = '/booking-success';
+  static const String addListing = '/add-listing';
+  static const String adminApproval = '/admin-approval';
+  static const String addReview = '/add-review';
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
     routes: [
+
       GoRoute(
         path: login,
         builder: (context, state) => const LoginScreen(),
@@ -55,11 +76,11 @@ class AppRouter {
       GoRoute(
         path: wallet,
         builder: (context, state) {
-          final amount = state.extra as double? ?? 0.0; 
+          final amount = state.extra as double? ?? 0.0;
           return WalletScreen(amount: amount);
         },
       ),
-      GoRoute( 
+      GoRoute(
       path: notifications,
       builder: (context, state) => const NotifactionsScreen(),
       ),
@@ -68,6 +89,45 @@ class AppRouter {
           return MainLayout(child: child);
         },
         routes: [
+          GoRoute(
+            path: '$editListing/:propertyId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['propertyId']?? '0');
+
+
+
+              return EditListingScreen( id: id);
+            },
+          ),
+          GoRoute(
+            path: '$detailsScreen/:propertyId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['propertyId']?? '0');
+
+
+
+              return PropertyDetailsScreen(propertyId: id);
+            },
+          ),
+          GoRoute(
+            path: '/booking-summary/:id',
+            builder: (context, state) {
+              final id = state.pathParameters['id'];
+              return BookingSummaryScreen(propertyId: int.parse(id!));
+            },
+          ),
+          GoRoute(
+            path: '/booking-success',
+            builder: (context, state) => const BookingSuccessScreen(),
+          ),
+          GoRoute(
+            path: '/booking-edit/:propertyId',
+            builder: (context, state) {
+              return BookingEditScreen(
+                  propertyId: int.parse(state.pathParameters['propertyId']!),
+                  bookingId: state.extra as int);
+            }
+          ),
           GoRoute(
             path: home,
             builder: (context, state) => const HomeScreen(),
@@ -78,12 +138,36 @@ class AppRouter {
           ),
           GoRoute(
             path: bookings,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const MyBookingScreen(),
           ),
           GoRoute(
             path: profile,
-            builder: (context, state) => const ProfileScreen(),
+            builder: (context, state) => const HomeScreen(),
           ),
+          GoRoute(
+            path: '$addReview/:bookingId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['bookingId']?? '0');
+              return AddReviewScreen(bookingId: id);
+            },
+          ),
+
+          GoRoute(
+              path: adminApproval,
+              builder: (context, state) => const AdminApprovalScreen()
+          ),
+          GoRoute(
+              path: addListing,
+              builder: (context, state) => const AddListingScreen()
+          ),
+          GoRoute(
+            path: '/booking/:id',
+            builder: (context, state) {
+              final bookingId = int.parse(state.pathParameters['id']!);
+              return BookingDetailsScreen(bookingId: bookingId);
+            },
+          ),
+
         ],
       ),
 

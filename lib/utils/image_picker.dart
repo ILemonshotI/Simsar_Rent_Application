@@ -3,13 +3,13 @@ import 'package:image_picker/image_picker.dart';
 
 // Adding Uint8List? return type makes your code safer
 Future<Uint8List?> pickImage(ImageSource source) async {
-  final ImagePicker _imagePicker = ImagePicker();
+  final ImagePicker imagePicker = ImagePicker();
   
   try {
-    XFile? _file = await _imagePicker.pickImage(source: source);
+    XFile? file = await imagePicker.pickImage(source: source);
     
-    if (_file != null) {
-      return await _file.readAsBytes();
+    if (file != null) {
+      return await file.readAsBytes();
     }
   } catch (e) {
     print("Error picking image: $e");

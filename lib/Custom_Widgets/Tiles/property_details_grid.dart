@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../models/property_model.dart';
+import '../../Models/property_model.dart';
 
 class PropertyDetailsGrid extends StatelessWidget {
   final Property property;
 
-  const PropertyDetailsGrid({required this.property});
+  const PropertyDetailsGrid({super.key, required this.property});
 
   Widget _item(String label, String value) {
     return Column(
@@ -38,7 +38,6 @@ class PropertyDetailsGrid extends StatelessWidget {
           _item("Area", "${property.areaSqft} sqft"),
           _item("Build", property.buildYear.toString()),
           _item("Parking", property.parking.toString()),
-          _item("Status", property.status),
         ],
       ),
     );

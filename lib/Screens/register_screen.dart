@@ -101,11 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           userIDBackImage!,
         ],
       );
-      const String baseUrl = "https://airbnb-production-d781.up.railway.app";
 
-      final userProfileImagePath = baseUrl + uploadedUrls[0];
-      final userIDFrontImagePath = baseUrl + uploadedUrls[1];
-      final userIDBackImagePath = baseUrl + uploadedUrls[2];
+      final userProfileImagePath = uploadedUrls[0];
+      final userIDFrontImagePath = uploadedUrls[1];
+      final userIDBackImagePath = uploadedUrls[2];
 
       // API Call
       final response = await DioClient.dio.post(
@@ -153,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     catch (e) {
     if (mounted) Navigator.pop(context); // Always close spinner on error
-    print("Logic Error: $e");
+    print("Logic Error: $e"); 
     _showSnackBar("Unexpected error: $e", isError: true);
   }
   }

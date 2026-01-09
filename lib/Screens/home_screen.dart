@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (filter?.city != null)
           'city': filter!.city!.displayName,
 
-        // Property Types 
+        // Property Types
         if (filter?.propertyTypes.isNotEmpty == true)
           'type': filter!.propertyTypes
               .map((e) => e.displayName)

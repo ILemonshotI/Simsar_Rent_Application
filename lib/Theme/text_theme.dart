@@ -21,7 +21,7 @@ class STextTheme {
         ),
         titleSmall: TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.w800, // bold
+          fontWeight: FontWeight.w800, // Semibold
           color: SAppColors.primaryBlue,
         ),
 

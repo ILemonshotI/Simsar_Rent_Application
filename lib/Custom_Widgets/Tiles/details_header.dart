@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../Theme/app_colors.dart';
-import '../../Theme/app_theme.dart';
-import '../../models/property_model.dart';
+import '../../Models/property_model.dart';
 
 class HeaderSection extends StatelessWidget {
   final Property property;
 
-  const HeaderSection({required this.property});
+  const HeaderSection({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +29,7 @@ class HeaderSection extends StatelessWidget {
                     const Icon(Icons.location_on, size: 16),
                     const SizedBox(width: 4),
                     Text(
+
                       "${property.province.displayName}, ${property.city.displayName}",
                       style: STextTheme.lightTextTheme.bodyMedium,
                     ),

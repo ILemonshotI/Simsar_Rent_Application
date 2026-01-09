@@ -11,8 +11,8 @@ class SPropertySearchBar extends StatelessWidget {
   final VoidCallback onFilterTap;
 
   const SPropertySearchBar({
-    super.key, 
-    required this.propertiesList, 
+    super.key,
+    required this.propertiesList,
     required this.onSelected,
     required this.onFilterTap,
   });
@@ -28,8 +28,8 @@ class SPropertySearchBar extends StatelessWidget {
         );
 
         if (selectedProperty != null) {
-           onSelected(selectedProperty);
-           print(selectedProperty.title);
+          onSelected(selectedProperty);
+          print(selectedProperty.title);
         }
       },
       child: Container(
@@ -51,9 +51,9 @@ class SPropertySearchBar extends StatelessWidget {
               ),
             ),
             IconButton(
-            onPressed: onFilterTap,
-            icon: const Icon(Icons.tune_rounded, color: SAppColors.secondaryDarkBlue),
-          ),
+              onPressed: onFilterTap,
+              icon: const Icon(Icons.tune_rounded, color: SAppColors.secondaryDarkBlue),
+            ),
           ],
         ),
       ),
