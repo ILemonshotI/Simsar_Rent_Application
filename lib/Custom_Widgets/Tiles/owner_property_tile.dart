@@ -25,7 +25,7 @@ class OwnerPropertyTile extends StatelessWidget {
       height: 84,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: SAppColors.background,
+        color: SAppColors.transparent,
         borderRadius: BorderRadius.circular(16),
 
       ),

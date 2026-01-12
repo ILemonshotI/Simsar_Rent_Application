@@ -106,9 +106,9 @@ class _EditListingScreenState extends State<EditListingScreen> {
           'rooms': bedrooms,
           'parking': hasParking,
           'images': finalImages,
-          'type': _selectedPropertyType!.name,
-          'province': _selectedProvince!.name,
-          'city': _selectedCity!.name,
+          'type': _selectedPropertyType!.displayName,
+          'province': _selectedProvince!.displayName,
+          'city': _selectedCity!.displayName,
           'bathrooms': bathrooms,
           'build_year':1970,
 
@@ -118,7 +118,7 @@ class _EditListingScreenState extends State<EditListingScreen> {
 
       if (!mounted) return;
 
-      //context.push('/admin-approval');
+      context.push('/admin-approval');
 
     } catch (e) {
       debugPrint('Edit listing failed: $e');

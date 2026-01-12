@@ -105,8 +105,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                           property: property,
                           onTap: () {
                             context.push(
-                              '/owner-property-details',
-                              extra: property,
+                              '/edit-listing/${property.id}',
                             );
                           },
                         );

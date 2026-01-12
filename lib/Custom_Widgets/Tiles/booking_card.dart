@@ -33,6 +33,8 @@ class BookingCard extends StatelessWidget {
               width: 80,
               height: 80,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Container(color: SAppColors.textGray, width: 80, height: 80),
             ),
           ),
           const SizedBox(width: 12),

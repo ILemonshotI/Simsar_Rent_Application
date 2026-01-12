@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../Theme/app_colors.dart';
 import '../../utils/image_picker.dart' as picker;
 
 class PhotosSection extends StatefulWidget {
@@ -78,9 +79,13 @@ child: const Icon(Icons.add),
     return ClipRRect(
     borderRadius: BorderRadius.circular(8),
     child: Image.network(
+
     existingPhotos[index],
     width: 90,
     fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          Container(color: SAppColors.textGray, width: 90),
+
     ),
     );
     }

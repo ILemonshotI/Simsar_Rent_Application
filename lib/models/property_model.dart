@@ -68,10 +68,43 @@ class Property {
       isFavorite: json['is_favorite'] ?? false,
 
       // Backend doesn’t return agent/reviews yet → safe defaults
-      agent: Agent.fromJson(json['owner']),
+      agent: Agent(
+        id: 0,
+        name: ' ',
+        avatarUrl: '',
+        role: 'agent',
+      ),
       reviewsCount: 0,
     );
 
+  }
+
+  factory Property.fromJson(Map<String, dynamic> json) {
+    return Property(
+      status: "",
+      id: json['id'] as int,
+      title: json['title'] as String,
+      province: ProvinceApiMapper.fromApi(json['province']),
+      city: CityApiMapper.fromApi(json['city']),
+      description: json['description'] as String,
+      bedrooms: json['rooms'] as int,
+      bathrooms: json['bathrooms'] as int,
+      parking: json['parking'] as bool,
+      propertyType: PropertyTypeApiMapper.fromApi(json['type']),
+      pricePerDay: double.parse(json['price_per_day']),
+      images: List<String>.from(json['images'] ?? []),
+
+      areaSqft: json['area'],
+      buildYear: json['build_year'],
+      reviews: [],
+
+      agent: Agent.fromJson(json['owner']),
+
+      // Backend doesn't provide these (yet)
+      reviewsAvgRating: 0.0,
+      reviewsCount: 0,
+
+    );
   }
 
 }
@@ -100,13 +133,13 @@ class Agent {
 
 class Review {
   final String reviewerName;
-  final String reviewerAvatar;
+  final String? reviewerAvatar;
   final int rating;
   final String text;
 
   Review({
     required this.reviewerName,
-    required this.reviewerAvatar,
+     this.reviewerAvatar,
     required this.rating,
     required this.text,
   });
@@ -117,7 +150,7 @@ class Review {
 
     return Review(
       reviewerName: '$firstName $lastName',
-      reviewerAvatar: tenant['photo'], // might be null
+      reviewerAvatar: tenant['photo'] ?? "https://picsum.photos/200", // might be null
       rating: json['rating'] ?? 0,
       text: json['comment'] ?? '',
     );

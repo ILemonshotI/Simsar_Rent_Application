@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:simsar/Models/property_enums.dart';
 import 'package:simsar/Network/api_client.dart';
 
+import '../Custom_Widgets/Buttons/primary_button.dart';
 import '../Models/booking_model.dart';
 import '../Models/property_model.dart';
+import '../Theme/app_colors.dart';
 
 // --- MODELS (Paste your Property, Agent, Review models here) ---
 // I am assuming the Property models you provided are in a file named models.dart
@@ -103,38 +105,26 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
-        ),
-        title: const Text(
-          "My Booking",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("My Bookings"),
         centerTitle: true,
-      ),      // Bottom Navigation Bar placeholder to match screenshot
+      ),
+
       body: Column(
         children: [
           // Custom Tab Bar
           Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              height: 45,
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  _buildTabItem("Upcoming", 0),
-                  _buildTabItem("Completed", 1),
-                  _buildTabItem("Cancelled", 2),
-                ],
-              ),
+            padding: const EdgeInsets.all(16),
+            child: SegmentedButton<int>(
+              segments: const [
+                ButtonSegment(value: 0, label: Text("Upcoming")),
+                ButtonSegment(value: 1, label: Text("Completed")),
+                ButtonSegment(value: 2, label: Text("Cancelled")),
+              ],
+              selected: {_selectedTabIndex},
+              onSelectionChanged: (value) {
+                setState(() => _selectedTabIndex = value.first);
+              },
             ),
           ),
 
@@ -143,7 +133,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _filteredBookings.isEmpty
-                ? _buildEmptyState()
+                ? _buildEmptyState(context)
                 : ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _filteredBookings.length,
@@ -227,31 +217,27 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Placeholder for the illustration in the screenshot
-          Container(
-            height: 180,
-            width: 180,
-            decoration: BoxDecoration(
-              color: Colors.blue[50],
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-                Icons.luggage, size: 80, color: Color(0xFF0F2C59)),
+          Icon(
+            Icons.luggage,
+            size: 80,
+            color: SAppColors.lightBlue,
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             "You have no upcoming bookings",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             "Go to the Home page to make a new booking",
-            style: TextStyle(color: Colors.grey),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: SAppColors.descriptionTextGray,
+            ),
           ),
         ],
       ),
@@ -320,18 +306,7 @@ class BookingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.05),
-            spreadRadius: 2,
-            blurRadius: 10,
-          )
-        ],
-      ),
+
       child: Column(
         children: [
           Row(
@@ -343,7 +318,6 @@ class BookingCard extends StatelessWidget {
                 child: Container(
                   width: 80,
                   height: 80,
-                  color: Colors.grey[300],
                   child: Image.network(
                     property.images.isNotEmpty ? property.images.first : '',
                     fit: BoxFit.cover,
@@ -359,21 +333,21 @@ class BookingCard extends StatelessWidget {
                   children: [
                     Text(
                       property.title,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: Theme.of(context).textTheme.titleLarge,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
+                        Icon(Icons.location_on_outlined, size: 16, color: SAppColors.textGray),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            "${property.city}, ${property.province}",
-                            style: const TextStyle(color: Colors.grey, fontSize: 12),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            "${property.city.displayName}, ${property.province.displayName}",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: SAppColors.descriptionTextGray,
+                            ),
                           ),
                         ),
                       ],
@@ -404,10 +378,11 @@ class BookingCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
+                  child:SizedBox(
+                    height: 52,
                   child: OutlinedButton(
-                    onPressed: isUpcoming
-                        ? () async {
-                      // Optionally confirm cancellation
+
+                    onPressed: () async {
                       final confirm = await showDialog<bool>(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -427,34 +402,27 @@ class BookingCard extends StatelessWidget {
                       );
 
                       if (confirm == true) {
-                        // Call cancel function from parent state
                         final state = context.findAncestorStateOfType<_MyBookingScreenState>();
                         await state?._cancelBooking(booking);
                       }
-                    }
-                        : null,
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey.shade300),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    ),
-                    child: const Text("Cancel Booking", style: TextStyle(color: Colors.grey)),
-                  ),
+                    },
+                    child: const Text("Cancel"),
 
+                  ),
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {context.go('/booking-summary/${property.id}',extra:booking.id,);}, // Non-functional
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F2C59),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      elevation: 0,
-                    ),
-                    child: const Text("Edit Booking", style: TextStyle(color: Colors.white)),
+                  child: SPrimaryButton(
+                    onPressed: () {
+                      context.go('/booking-edit/${property.id}', extra: booking.id);
+                    },
+                    text: "Edit",
                   ),
                 ),
               ],
             ),
+
           ],
         ],
       ),
@@ -483,7 +451,7 @@ class BookingCard extends StatelessWidget {
         text = "Cancelled";
         break;
       default:
-        bgColor = Colors.grey[200]!;
+        bgColor = SAppColors.background;
         textColor = Colors.black;
         text = status;
     }

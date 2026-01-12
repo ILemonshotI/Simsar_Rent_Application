@@ -157,7 +157,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: SAppColors.secondaryDarkBlue,
-                  disabledBackgroundColor: SAppColors.lightBlue,
+                  disabledBackgroundColor: Colors.grey.shade400,
                 ),
                 child: _isBooking
                     ? const SizedBox(
@@ -170,7 +170,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 )
                     : const Text(
                   'Book',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+
                 ),
               ),
             ),

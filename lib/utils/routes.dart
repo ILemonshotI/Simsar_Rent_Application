@@ -20,7 +20,6 @@ import 'package:simsar/Screens/favourites_screen.dart';
 import 'package:simsar/Screens/profile_screen.dart';
 import 'package:simsar/Layouts/owner_layout.dart';
 import 'package:simsar/Screens/wallet_screen.dart';
-
 import '../Screens/booking_edit_screen.dart';
 import '../Screens/booking_request_details.dart';
 import '../Screens/booking_summary_screen.dart';
@@ -48,9 +47,9 @@ class AppRouter {
   static const String addListing = '/add-listing';
   static const String adminApproval = '/admin-approval';
   static const String addReview = '/add-review';
-
+  static const String editBooking = '/edit-booking';
   static final GoRouter router = GoRouter(
-    initialLocation: '/details/2',
+    initialLocation: ownerHome,
     routes: [
 
       GoRoute(
@@ -89,16 +88,7 @@ class AppRouter {
           return MainLayout(child: child);
         },
         routes: [
-          GoRoute(
-            path: '$editListing/:propertyId',
-            builder: (context, state) {
-              final id = int.parse(state.pathParameters['propertyId']?? '0');
 
-
-
-              return EditListingScreen( id: id);
-            },
-          ),
           GoRoute(
             path: '$detailsScreen/:propertyId',
             builder: (context, state) {
@@ -157,10 +147,6 @@ class AppRouter {
               builder: (context, state) => const AdminApprovalScreen()
           ),
           GoRoute(
-              path: addListing,
-              builder: (context, state) => const AddListingScreen()
-          ),
-          GoRoute(
             path: '/booking/:id',
             builder: (context, state) {
               final bookingId = int.parse(state.pathParameters['id']!);
@@ -177,6 +163,13 @@ class AppRouter {
         },
         routes: [
           GoRoute(
+            path: '$editListing/:propertyId',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['propertyId']?? '0');
+              return EditListingScreen( id: id);
+            },
+          ),
+          GoRoute(
             path: ownerHome,
             builder: (context, state) => const OwnerHomeScreen(),
           ),
@@ -187,6 +180,10 @@ class AppRouter {
           GoRoute(
             path: ownerProfile,
             builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+              path: addListing,
+              builder: (context, state) => const AddListingScreen()
           ),
         ],
       ),
