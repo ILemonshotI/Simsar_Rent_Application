@@ -49,7 +49,7 @@ class AppRouter {
   static const String addReview = '/add-review';
   static const String editBooking = '/edit-booking';
   static final GoRouter router = GoRouter(
-    initialLocation: ownerHome,
+    initialLocation: login,
     routes: [
 
       GoRoute(
