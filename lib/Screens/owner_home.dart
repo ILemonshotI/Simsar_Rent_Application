@@ -39,8 +39,13 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
       final fetchedProperties =
           data.map((e) => Property.fromApiJson(e)).toList();
 
+      final approvedProperties =
+          fetchedProperties.where((p) => p.status == 'Available').toList();
+
+   
+
       setState(() {
-        properties = fetchedProperties;
+        properties = approvedProperties;
       });
     } catch (e) {
       setState(() {

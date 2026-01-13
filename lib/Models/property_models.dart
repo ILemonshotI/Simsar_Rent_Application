@@ -107,6 +107,33 @@ class Property {
     );
   }
 
+
+static  Property dummy() {
+  return Property(
+        status: "",
+        propertyType: PropertyType.villa,
+        id: 2,
+        title: "Yafour Villa",
+        province: Province.damascus,
+        city: City.dummar,
+        reviewsAvgRating:4,
+        pricePerDay: 120.0,
+        images: ["assets/images/yafour_villa.jpg"],
+        bedrooms: 2,
+        bathrooms: 1,
+        areaSqft: 450,
+        buildYear: 2021,
+        parking: true,
+        description: "A cozy place to stay.",
+        agent: Agent(
+          id: 1,
+          name: "John",
+          avatarUrl: "",
+          role: "Owner",
+        ),
+        reviewsCount: 10,
+      );
+}
 }
 
 class Agent {
