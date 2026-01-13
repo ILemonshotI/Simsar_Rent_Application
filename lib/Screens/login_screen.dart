@@ -7,7 +7,7 @@ import 'package:simsar/Custom_Widgets/Text_Fields/password_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/checkbox_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_header.dart';
 import 'package:simsar/Custom_Widgets/Tiles/login_footer.dart';
-import '../Storage/token_storage.dart';
+import '../Network/token_storage.dart';
 
 import '../Network/api_client.dart';
 import 'package:simsar/Theme/app_colors.dart';
@@ -58,13 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // 4. Handle success (example)095
      if (mounted) {
-        // 6. Navigate to HomeScreen and REMOVE login from the stack
-        context.go('/home');
+        TokenStorage.setToken(response.data['token']);
+        final role = response.data['user']['role'];
+        if (role == 'tenant') {
+          context.go('/home');
+        }
+        else if (role == "owner") {
+          context.go('/owner-home');
+        }
       }
-
-      // TODO:
-      final token = response.data['token'];
-      await TokenStorage.saveToken(token);
 
     } on DioException catch (e) {
       final errorMessage =
