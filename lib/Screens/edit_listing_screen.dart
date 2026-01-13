@@ -135,6 +135,20 @@ class _EditListingScreenState extends State<EditListingScreen> {
     }
   }
 
+  Future<void> _delete() async {
+
+      // 3️⃣ Submit update
+      await DioClient.dio.delete(
+        '/api/apartments/${widget.id}',
+      );
+
+      if (!mounted) return;
+
+      context.push('/owner-home');
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -296,17 +310,37 @@ class _EditListingScreenState extends State<EditListingScreen> {
                 ),
 
                 const SizedBox(height: 24),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: _uploadingPhotos ? null : _confirm,
+                          child: _uploadingPhotos
+                              ? const CircularProgressIndicator()
+                              : const Text('Confirm Listing'),
+                        ),
+                      ),
+                    ),
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: _uploadingPhotos ? null : _confirm,
-                    child: _uploadingPhotos
-                        ? const CircularProgressIndicator()
-                        : const Text('Confirm Listing'),
-                  ),
-                ),
+                    const SizedBox(width: 12), // Padding between buttons
+
+                    Expanded(
+                      child: SizedBox(
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: _delete,
+                          child: _uploadingPhotos
+                              ? const CircularProgressIndicator()
+                              : const Text('Delete Listing'),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+
               ],
             ),
           );
