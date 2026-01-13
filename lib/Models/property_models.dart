@@ -110,8 +110,8 @@ class Property {
 }
 
 class Agent {
-    final int id;
-    final String name;
+  final int id;
+  final String name;
   final String avatarUrl;
   final String role;
 
@@ -139,7 +139,7 @@ class Review {
 
   Review({
     required this.reviewerName,
-     this.reviewerAvatar,
+    this.reviewerAvatar,
     required this.rating,
     required this.text,
   });

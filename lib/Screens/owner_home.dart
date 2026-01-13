@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Custom_Widgets/Tiles/owner_property_tile.dart';
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Custom_Widgets/Tiles/owner_home_header.dart';
 import 'package:simsar/Network/api_client.dart';

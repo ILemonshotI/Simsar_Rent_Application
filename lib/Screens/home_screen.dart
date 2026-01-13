@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:simsar/Custom_Widgets/Tiles/property_tile.dart';
 import 'package:simsar/Custom_Widgets/Tiles/home_header.dart';
 import 'package:simsar/Custom_Widgets/Text_Fields/search_field.dart';
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/filter_model.dart';
 import 'package:simsar/Custom_Widgets/Tiles/filter_sheet.dart';

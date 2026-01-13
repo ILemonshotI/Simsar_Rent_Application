@@ -6,7 +6,7 @@ import '../Custom_Widgets/Tiles/bedrooms_counter.dart';
 import '../Custom_Widgets/Tiles/photos_section.dart';
 import '../Models/property_enums.dart';
 import '../utils/image_path_grabber.dart';
-import '../Models/property_model.dart';
+import '../Models/property_models.dart';
 
 class AddListingScreen extends StatefulWidget {
   const AddListingScreen({super.key});

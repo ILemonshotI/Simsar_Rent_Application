@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simsar/utils/search_delegate.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_theme.dart';
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 
 
 class SPropertySearchBar extends StatelessWidget {

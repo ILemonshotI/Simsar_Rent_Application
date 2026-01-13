@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_theme.dart';
 class ApartmentSearchTile extends StatelessWidget {

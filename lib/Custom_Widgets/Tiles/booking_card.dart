@@ -1,6 +1,6 @@
 // features/booking/widgets/booking_card.dart
 import 'package:flutter/material.dart';
-import '../../Models/property_model.dart';
+import '../../Models/property_models.dart';
 import '../../Theme/app_colors.dart';
 import '../../Theme/text_theme.dart';
 

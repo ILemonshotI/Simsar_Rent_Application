@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simsar/Theme/app_colors.dart'; // Import your custom colors
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 import 'package:simsar/Network/api_client.dart';
 class FavoriteButton extends StatefulWidget {
   final Property property;

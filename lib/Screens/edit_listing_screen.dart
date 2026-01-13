@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Network/api_client.dart';
-import 'package:simsar/Models/property_model.dart';
+import 'package:simsar/Models/property_models.dart';
 import '../Custom_Widgets/Tiles/bedrooms_counter.dart';
 import '../Custom_Widgets/Tiles/photos_section.dart';
 import '../Models/property_enums.dart';
@@ -12,6 +12,9 @@ class EditListingScreen extends StatefulWidget {
   final int id;
 
   const EditListingScreen({
+
+
+
     super.key,
     required this.id,
   });

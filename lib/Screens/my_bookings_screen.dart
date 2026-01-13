@@ -6,7 +6,7 @@ import 'package:simsar/Network/api_client.dart';
 
 import '../Custom_Widgets/Buttons/primary_button.dart';
 import '../Models/booking_model.dart';
-import '../Models/property_model.dart';
+import '../Models/property_models.dart';
 import '../Theme/app_colors.dart';
 
 // --- MODELS (Paste your Property, Agent, Review models here) ---
@@ -180,6 +180,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                         booking: booking,
                         property: property,
                         isUpcoming: _selectedTabIndex == 0,
+                        isCompleted: _selectedTabIndex == 1,
                       );
                     },
                   );
@@ -294,12 +295,14 @@ class BookingCard extends StatelessWidget {
   final Booking booking;
   final Property property;
   final bool isUpcoming;
+  final bool isCompleted;
 
   const BookingCard({
     super.key,
     required this.booking,
     required this.property,
     required this.isUpcoming,
+    required this.isCompleted,
   });
 
   @override
@@ -424,6 +427,27 @@ class BookingCard extends StatelessWidget {
             ),
 
           ],
+          if (isCompleted) ...[
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 12.0),
+              child: Divider(height: 1),
+            ),
+            Row(
+              children: [
+
+                Expanded(
+                  child: SPrimaryButton(
+                    onPressed: () {
+                      context.go('/add-review/${booking.id}');
+                    },
+                    text: "Add Review",
+                  ),
+                ),
+              ],
+            ),
+
+          ],
+
         ],
       ),
     );

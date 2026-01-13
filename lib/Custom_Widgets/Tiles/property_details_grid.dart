@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:simsar/Theme/text_theme.dart';
 
-import '../../Models/property_model.dart';
+import '../../Models/property_models.dart';
 
 class PropertyDetailsGrid extends StatelessWidget {
   final Property property;
