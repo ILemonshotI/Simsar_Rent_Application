@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simsar/Theme/app_colors.dart';
-import 'dart:typed_data';
 import 'package:simsar/Theme/text_theme.dart';
 import 'package:simsar/Custom_Widgets/Tiles/profile_tile.dart';
 import 'package:simsar/Network/api_client.dart';

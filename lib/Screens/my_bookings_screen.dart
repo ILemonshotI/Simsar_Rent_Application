@@ -87,16 +87,22 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
     switch (_selectedTabIndex) {
       case 0: // Upcoming
         return _allBookings.where((b) {
-          // Logic: End date is in the future AND not cancelled
-          return b.endDate.isAfter(now) && b.status != 'cancelled';
+          final inactiveStatuses = ['cancelled', 'rejected'];
+          return b.endDate.isAfter(now) && 
+                !inactiveStatuses.contains(b.status.toLowerCase());
         }).toList();
+
       case 1: // Completed
         return _allBookings.where((b) {
-          // Logic: End date is in the past AND not cancelled
-          return b.endDate.isBefore(now) && b.status != 'cancelled';
+          final inactiveStatuses = ['cancelled', 'rejected'];
+          return b.endDate.isBefore(now) && 
+                !inactiveStatuses.contains(b.status.toLowerCase());
         }).toList();
-      case 2: // Cancelled
-        return _allBookings.where((b) => b.status == 'cancelled').toList();
+      case 2: // Cancelled/Rejected
+        return _allBookings.where((b) => 
+        b.status.toLowerCase() == 'cancelled' || 
+        b.status.toLowerCase() == 'rejected'
+      ).toList();
       default:
         return [];
     }
@@ -474,6 +480,11 @@ class BookingCard extends StatelessWidget {
         textColor = const Color(0xFFFF3B30); // Red
         text = "Cancelled";
         break;
+      case 'rejected':
+        bgColor = const Color(0xFFFFE5E5); // Light Red
+        textColor = const Color(0xFFFF3B30); // Red
+        text = "Rejected";
+        break;  
       default:
         bgColor = SAppColors.background;
         textColor = Colors.black;
