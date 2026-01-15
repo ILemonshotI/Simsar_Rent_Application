@@ -6,6 +6,8 @@ import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Custom_Widgets/Tiles/owner_home_header.dart';
 import 'package:simsar/Network/api_client.dart';
 
+import '../Services/notification_service.dart';
+
 class OwnerHomeScreen extends StatefulWidget {
   const OwnerHomeScreen({super.key});
 
@@ -22,6 +24,8 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   void initState() {
     super.initState();
     _fetchOwnerApartments();
+    NotificationService.initialize();
+
   }
 
   Future<void> _fetchOwnerApartments() async {

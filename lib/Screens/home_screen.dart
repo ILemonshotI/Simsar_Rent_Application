@@ -8,6 +8,8 @@ import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Models/filter_model.dart';
 import 'package:simsar/Custom_Widgets/Tiles/filter_sheet.dart';
 import 'package:simsar/Network/api_client.dart';
+
+import '../Services/notification_service.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -29,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Initially show all properties
     _fetchApartments();
+    NotificationService.initialize();
   }
 
   Future<void> _fetchApartments({PropertyFilter? filter}) async {

@@ -12,7 +12,8 @@ void showCalendarSheet(
     ) async {
   DateFilter tempFilter = currentFilter.copy();
   Set<DateTime> bookedDates = {};
-
+  final DateTime today = DateTime.now();
+  final DateTime todayOnly = DateTime(today.year, today.month, today.day);
   // Fetch booked dates
   try {
     final response =
@@ -94,7 +95,7 @@ void showCalendarSheet(
                 const SizedBox(height: 16),
 
                 TableCalendar(
-                  firstDay: DateTime(2000),
+                  firstDay: todayOnly,
                   lastDay: DateTime(2100),
                   focusedDay: focusedDay,
                   rangeStartDay: tempFilter.start,
@@ -103,9 +104,17 @@ void showCalendarSheet(
                   rangeSelectionMode: RangeSelectionMode.enforced,
                   availableGestures: AvailableGestures.horizontalSwipe,
 
-                  enabledDayPredicate: (day) => !isBooked(day),
+                  enabledDayPredicate:(day) {
+                    final d = DateTime(day.year, day.month, day.day);
 
-                  onRangeSelected: (start, end, _) {
+                    if (d.isBefore(todayOnly)) return false;
+                    if (isBooked(d)) return false;
+
+                    return true;
+                    },
+
+
+            onRangeSelected: (start, end, _) {
                     if (start == null || end == null) return;
 
                     // 🚫 Block ranges that overlap booked days

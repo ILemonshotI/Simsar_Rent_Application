@@ -68,7 +68,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
   Future<void> _fetchBookings() async {
     try {
       final response = await DioClient.dio.get('/api/bookings');
-      final List<dynamic> data = response.data; // Use this for real API
+      final List<dynamic> data = response.data;
 
       setState(() {
         _allBookings = data.map((json) => Booking.fromJson(json)).toList();
@@ -187,6 +187,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                         property: property,
                         isUpcoming: _selectedTabIndex == 0,
                         isCompleted: _selectedTabIndex == 1,
+                        isReviewed: booking.hasReview,
                       );
                     },
                   );
@@ -302,6 +303,7 @@ class BookingCard extends StatelessWidget {
   final Property property;
   final bool isUpcoming;
   final bool isCompleted;
+  final bool isReviewed;
 
   const BookingCard({
     super.key,
@@ -309,6 +311,7 @@ class BookingCard extends StatelessWidget {
     required this.property,
     required this.isUpcoming,
     required this.isCompleted,
+    required this.isReviewed,
   });
 
   @override
@@ -433,7 +436,7 @@ class BookingCard extends StatelessWidget {
             ),
 
           ],
-          if (isCompleted) ...[
+          if (isCompleted && !isReviewed) ...[
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 12.0),
               child: Divider(height: 1),
