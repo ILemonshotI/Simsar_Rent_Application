@@ -10,7 +10,7 @@ class DioClient {
       BaseOptions(
         baseUrl: 'https://airbnb-production-d781.up.railway.app',
         connectTimeout: const Duration(seconds: 30),
-        receiveTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 20),
       ),
     );
 

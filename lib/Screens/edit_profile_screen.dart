@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:simsar/Network/token_storage.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Custom_Widgets/Tiles/read_only_field.dart';
 import 'package:simsar/Custom_Widgets/Tiles/read_only_password_field.dart';
@@ -158,7 +159,8 @@ class _ProfileDetailsViewScreenState extends State<ProfileDetailsViewScreen> {
                     width: 200,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Log out logic will go here
+                        TokenStorage.setToken('0');
+                        context.go('/login');
                       },
                       child: const Text("Log Out"),
                     ),

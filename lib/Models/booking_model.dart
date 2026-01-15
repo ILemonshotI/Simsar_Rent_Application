@@ -31,7 +31,7 @@ class Booking {
       endDate: DateTime.parse(json['end_date']),
       status: json['status'],
       totalPrice: double.tryParse(json['total_price'].toString()) ?? 0.0,
-      hasReview: json['has_review'],
+      hasReview: false,
 
     );
   }

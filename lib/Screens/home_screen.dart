@@ -193,16 +193,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 30),
 
-            // Return Button (for testing)
-            Center(
-              child: SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () => context.go('/login'),
-                  child: const Text("Return to Login"),
-                ),
-              ),
-            ),
           ],
         ),
       ),
