@@ -68,7 +68,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
   Future<void> _fetchBookings() async {
     try {
       final response = await DioClient.dio.get('/api/bookings');
-      final List<dynamic> data = response.data['data']; // Use this for real API
+      final List<dynamic> data = response.data; // Use this for real API
 
       setState(() {
         _allBookings = data.map((json) => Booking.fromJson(json)).toList();
