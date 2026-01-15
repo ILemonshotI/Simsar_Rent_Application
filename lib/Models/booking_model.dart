@@ -36,6 +36,20 @@ class Booking {
     );
   }
 
+  factory Booking.fromApiJson(Map<String, dynamic> json) {
+    return Booking(
+      id: json['id'],
+      apartmentId: json['apartment_id'],
+      tenantId: json['tenant_id'],
+      startDate: DateTime.parse(json['start_date']),
+      endDate: DateTime.parse(json['end_date']),
+      status: json['status'],
+      totalPrice: double.tryParse(json['total_price'].toString()) ?? 0.0,
+      hasReview: json['has_review'],
+
+    );
+  }
+
   // Helper to format dates like "12 Aug - 12 Sep"
   String get dateRange {
     final startFormat = DateFormat('d MMM');

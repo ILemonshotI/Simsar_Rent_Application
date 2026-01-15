@@ -71,7 +71,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
       final List<dynamic> data = response.data;
 
       setState(() {
-        _allBookings = data.map((json) => Booking.fromJson(json)).toList();
+        _allBookings = data.map((json) => Booking.fromApiJson(json)).toList();
         _isLoading = false;
       });
     } catch (e) {

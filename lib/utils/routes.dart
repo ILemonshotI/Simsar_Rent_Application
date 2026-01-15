@@ -53,7 +53,7 @@ class AppRouter {
 
 
   static final GoRouter router = GoRouter(
-    initialLocation: login,
+    initialLocation: home,
     routes: [
 
       GoRoute(
