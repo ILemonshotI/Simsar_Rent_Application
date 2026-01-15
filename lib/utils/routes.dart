@@ -23,6 +23,7 @@ import 'package:simsar/Screens/wallet_screen.dart';
 import '../Screens/booking_edit_screen.dart';
 import '../Screens/booking_request_details.dart';
 import '../Screens/booking_summary_screen.dart';
+import 'package:simsar/Screens/pending_approval_listing_screen.dart';
 class AppRouter {
   static const String home = '/home';
   static const String login = '/login';
@@ -48,10 +49,11 @@ class AppRouter {
   static const String adminApproval = '/admin-approval';
   static const String addReview = '/add-review';
   static const String editBooking = '/edit-booking';
+  static const String pendingListingApproval = '/pending-listing-approval';
 
 
   static final GoRouter router = GoRouter(
-    initialLocation: login,
+    initialLocation: ownerHome,
     routes: [
 
       GoRoute(
@@ -65,6 +67,10 @@ class AppRouter {
       GoRoute(
         path: pendingApproval,
         builder: (context, state) => const PendingApprovalScreen(),
+      ),
+      GoRoute(
+        path: pendingListingApproval,
+        builder: (context, state) => const PendingApprovalListingScreen(),
       ),
       GoRoute(
         path: editProfile,

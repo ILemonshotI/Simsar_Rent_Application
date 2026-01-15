@@ -129,7 +129,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
             child: SizedBox(
               height: 48,
               child: ElevatedButton(
-                onPressed: () => context.go('/add-a-listing'),
+                onPressed: () => context.go('/add-listing'),
                 child: const Text("Add a Listing"),
               ),
             ),

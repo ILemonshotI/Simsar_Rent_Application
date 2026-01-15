@@ -94,7 +94,7 @@ class _AddListingScreenState extends State<AddListingScreen> {
       );
 
       if (!mounted) return;
-     // context.go('/admin-approval');
+      context.go('/pending-listing-approval');
 
     } catch (e) {
       debugPrint('Add listing failed: $e');

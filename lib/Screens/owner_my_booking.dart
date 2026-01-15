@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:simsar/Network/api_client.dart';
 import '../Models/booking_model.dart';
@@ -16,6 +17,10 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
   bool _isLoading = true;
   List<Booking> _allBookings = [];
   int _selectedTabIndex = 0; // 0: Pending, 1: Approved, 2: Cancelled
+  User? tenant; // To store the result
+  bool _isUserLoading = false;        // Separate loading state
+  String? _userErrorMessage; 
+  final Map<int, User> _userCache = {};        // Separate error state
 
   final Map<int, Property> _propertyCache = {};
 
@@ -38,6 +43,13 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
         _allBookings = data.map((json) => Booking.fromJson(json)).toList();
         _isLoading = false;
       });
+
+      final tenantIds = _allBookings.map((b) => b.tenantId).toSet();
+    
+    for (var id in tenantIds) {
+      _fetchUser(id); // This runs in the background as bookings appear
+    }
+
     } catch (e) {
       debugPrint('Error fetching bookings: $e');
       setState(() => _isLoading = false);
@@ -75,6 +87,47 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
       );
     }
   }
+
+  Future<void> _fetchUser(int userId) async {
+
+  if (_userCache.containsKey(userId)) return;
+
+  try {
+    setState(() {
+      _isUserLoading = true;
+      _userErrorMessage = null;
+    });
+
+    final response = await DioClient.dio.get('/api/users/$userId');
+
+    // 200 - Success logic
+    setState(() {
+      _userCache[userId] = User.fromApiJson(response.data);
+    });
+    
+  } on DioException catch (e) {
+    setState(() {
+      // Documentation specific error handling
+      if (e.response?.statusCode == 401) {
+        _userErrorMessage = "Unauthenticated: Please log in again.";
+      } else if (e.response?.statusCode == 404) {
+        _userErrorMessage = "User not found: The ID $userId does not exist.";
+      } else {
+        _userErrorMessage = "Network Error: ${e.message}";
+      }
+    });
+  } catch (e) {
+    setState(() {
+      _userErrorMessage = "An unexpected error occurred: $e";
+    });
+  } finally {
+    setState(() {
+      _isUserLoading = false;
+    });
+  }
+}
+
+  
 
   // Updated filtering based on status string from API
   List<Booking> get _filteredBookings {
@@ -124,6 +177,7 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
                         separatorBuilder: (c, i) => const SizedBox(height: 16),
                         itemBuilder: (context, index) {
                           final booking = _filteredBookings[index];
+                          final tenant = _userCache[booking.tenantId];
                           return FutureBuilder<Property>(
                             future: fetchProperty(booking.apartmentId),
                             builder: (context, snapshot) {
@@ -136,7 +190,7 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
                                 // Logic: Pending tab shows edit/cancel, Approved shows review
                                 isUpcoming: _selectedTabIndex == 0, 
                                 isCompleted: _selectedTabIndex == 1,
-                                user: User.dummy(), // Using your AppUser dummy
+                                user: tenant ?? User.dummy(), // Using your AppUser dummy
                                 onCancel: () => _rejectBooking(booking),
                                 onApproved:() => _approveBooking(booking),
                               );
