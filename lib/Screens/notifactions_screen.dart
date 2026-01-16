@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:simsar/Custom_Widgets/Tiles/notification_tile.dart';
 import 'package:simsar/Theme/app_colors.dart';
 import 'package:simsar/Theme/text_theme.dart';
+
 class NotifactionsScreen extends StatefulWidget {
   const NotifactionsScreen({super.key});
 
@@ -10,15 +12,38 @@ class NotifactionsScreen extends StatefulWidget {
 }
 
 class _NotifactionsScreenState extends State<NotifactionsScreen> {
+
+  // 🔹 Static notifications (mock data)
+  final List<Map<String, String>> notifications = [
+    {
+      'title': 'New Message',
+      'description': 'You have received a new message',
+    },
+    {
+      'title': 'Booking Update',
+      'description': 'Your booking has been confirmed',
+    },
+    {
+      'title': 'Reminder',
+      'description': 'Dont forget your appointment tomorrow',
+    },
+  ];
+
+  final List<Map<String, String>> emptyNotifications = [
+   
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+              /// 🔹 Header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -39,41 +64,64 @@ class _NotifactionsScreenState extends State<NotifactionsScreen> {
                       color: SAppColors.secondaryDarkBlue,
                     ),
                   ),
-                  const SizedBox(width: 72),
-                  
+                  const SizedBox(width: 40),
                 ],
               ),
 
-              const SizedBox(height: 48),
-               Center(
-                child: Image.asset(
-                  'assets/images/no-notifications.png',
-                  width: 274,
-                  height: 202,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(height: 48),
+              const SizedBox(height: 32),
 
-              // 🔹 Title
-              Text(
-                "No notifications yet",
-                style: STextTheme.lightTextTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-
-              const SizedBox(height: 16),
-
-              // 🔹 Description
-              Text(
-                "All notification we send will appear here, so you can view them easily anytime.",
-                style: STextTheme.lightTextTheme.bodyMedium,
-                textAlign: TextAlign.center,
+              /// 🔹 Content
+              Expanded(
+                child: notifications.isEmpty
+                    ? _buildEmptyState()
+                    : _buildNotificationsList(),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// 🔹 Empty State UI
+  Widget _buildEmptyState() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/no-notifications.png',
+          width: 274,
+          height: 202,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 48),
+        Text(
+          "No notifications yet",
+          style: STextTheme.lightTextTheme.titleLarge,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          "All notifications we send will appear here, so you can view them easily anytime.",
+          style: STextTheme.lightTextTheme.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  /// 🔹 Notifications List
+  Widget _buildNotificationsList() {
+    return ListView.separated(
+      itemCount: notifications.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      itemBuilder: (context, index) {
+        final notification = notifications[index];
+        return NotificationsTile(
+          title: notification['title']!,
+          description: notification['description']!,
+        );
+      },
     );
   }
 }
