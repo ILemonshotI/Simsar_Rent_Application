@@ -37,7 +37,7 @@ class _MyBookingScreenState extends State<OwnerMyBookingScreen> {
       final response = await DioClient.dio.get('/api/owner/bookings');
       
       // Accessing the 'data' list from the paginated response body
-      final List<dynamic> data = response.data['data']; 
+     final List<dynamic> data = response.data;
 
       setState(() {
         _allBookings = data.map((json) => Booking.fromJson(json)).toList();
