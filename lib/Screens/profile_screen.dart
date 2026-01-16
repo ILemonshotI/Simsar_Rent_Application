@@ -54,7 +54,9 @@ Widget build(BuildContext context) {
       ? "Guest User" 
       : "$firstName $lastName";
 
-  final String? photoUrl = userData?['photo'];    
+  final String? photoUrl = userData?['photo'];  
+  debugPrint(photoUrl);
+
   return SafeArea(
     child: SingleChildScrollView(
       padding: const EdgeInsets.all(16),
